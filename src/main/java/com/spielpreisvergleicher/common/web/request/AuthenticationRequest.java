@@ -1,4 +1,4 @@
 package com.spielpreisvergleicher.common.web.request;
 
-public record AuthenticationRequest(String nickname, String password) {
+public record AuthenticationRequest(String email, String password) {
 }
