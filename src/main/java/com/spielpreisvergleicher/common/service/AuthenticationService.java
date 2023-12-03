@@ -7,6 +7,7 @@ import com.spielpreisvergleicher.common.repository.UserRepository;
 import com.spielpreisvergleicher.common.web.request.AuthenticationRequest;
 import com.spielpreisvergleicher.common.web.request.RegisterRequest;
 import com.spielpreisvergleicher.common.web.response.AuthenticationResponse;
+import com.spielpreisvergleicher.common.web.response.RegisterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +23,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         User user = User.builder()
                 .email(request.email())
                 .nickname(request.nickname())
@@ -31,7 +32,7 @@ public class AuthenticationService {
                 .build();
         userRepository.save(user);
         String jwt = jwtService.generateToken(user);
-        return new AuthenticationResponse(jwt);
+        return new RegisterResponse(jwt);
 
     }
 
