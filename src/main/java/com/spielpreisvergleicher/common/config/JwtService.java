@@ -49,7 +49,6 @@ public class JwtService {
                 .compact();
     }
 
-    //TODO Make Token as Class with methods
     public boolean isTokenValid(String token, UserDetails userDetails) {
         return (extractUsername(token).equals(userDetails.getUsername()) &&
                 !isTokenExpired(token));

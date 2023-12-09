@@ -1,5 +1,6 @@
 package com.spielpreisvergleicher.common.web.controller;
 
+import com.spielpreisvergleicher.common.exception.UserExistsException;
 import com.spielpreisvergleicher.common.service.AuthenticationService;
 import com.spielpreisvergleicher.common.web.request.AuthenticationRequest;
 import com.spielpreisvergleicher.common.web.request.RegisterRequest;
@@ -28,7 +29,6 @@ public class AuthenticationController {
             @RequestBody RegisterRequest request
     ) {
         log.info("Received Request to register new User");
-        //TODO send "OK" with message: "user failed to register"
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
@@ -37,7 +37,6 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request
     ) {
         log.info("Received Request to authenticate a User");
-        //TODO send "OK" with message: "user failed to login"
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 }
