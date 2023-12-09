@@ -3,6 +3,7 @@ package com.spielpreisvergleicher.common.service;
 import com.spielpreisvergleicher.common.config.JwtService;
 import com.spielpreisvergleicher.common.entity.user.Role;
 import com.spielpreisvergleicher.common.entity.user.User;
+import com.spielpreisvergleicher.common.exception.UserExistsException;
 import com.spielpreisvergleicher.common.repository.UserRepository;
 import com.spielpreisvergleicher.common.web.request.AuthenticationRequest;
 import com.spielpreisvergleicher.common.web.request.RegisterRequest;
@@ -24,6 +25,11 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public RegisterResponse register(RegisterRequest request) {
+        if (userRepository.findByEmail(request.email()).isPresent())
+            throw new UserExistsException("User with the same Email already exists");
+        if (userRepository.findByNickname(request.nickname()).isPresent())
+            throw new UserExistsException("User with the same Nickname already exists");
+
         User user = User.builder()
                 .email(request.email())
                 .nickname(request.nickname())
@@ -33,7 +39,6 @@ public class AuthenticationService {
         userRepository.save(user);
         String jwt = jwtService.generateToken(user);
         return new RegisterResponse(jwt);
-
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
