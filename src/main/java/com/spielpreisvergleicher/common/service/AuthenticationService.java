@@ -1,19 +1,19 @@
 package com.spielpreisvergleicher.common.service;
 
 import com.spielpreisvergleicher.common.config.JwtService;
+import com.spielpreisvergleicher.common.dto.LoginResult;
 import com.spielpreisvergleicher.common.entity.user.Role;
 import com.spielpreisvergleicher.common.entity.user.User;
 import com.spielpreisvergleicher.common.exception.UserExistsException;
+import com.spielpreisvergleicher.common.exception.UserNotFoundException;
 import com.spielpreisvergleicher.common.repository.UserRepository;
-import com.spielpreisvergleicher.common.web.request.AuthenticationRequest;
-import com.spielpreisvergleicher.common.web.request.RegisterRequest;
-import com.spielpreisvergleicher.common.web.response.AuthenticationResponse;
-import com.spielpreisvergleicher.common.web.response.RegisterResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,30 +24,34 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public RegisterResponse register(RegisterRequest request) {
-        if (userRepository.findByEmail(request.email()).isPresent())
-            throw new UserExistsException("User with the same Email already exists");
-        if (userRepository.findByNickname(request.nickname()).isPresent())
-            throw new UserExistsException("User with the same Nickname already exists");
+    public String register(String email, String nickname, String password) {
+        if (userRepository.findByEmail(email).isPresent())
+            throw new UserExistsException(HttpStatus.CONFLICT.value(), "User with the same Email already exists");
+        if (userRepository.findByNickname(nickname).isPresent())
+            throw new UserExistsException(HttpStatus.CONFLICT.value(), "User with the same Nickname already exists");
 
         User user = User.builder()
-                .email(request.email())
-                .nickname(request.nickname())
-                .password(passwordEncoder.encode(request.password()))
+                .email(email)
+                .nickname(nickname)
+                .password(passwordEncoder.encode(password))
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
-        String jwt = jwtService.generateToken(user);
-        return new RegisterResponse(jwt);
+
+        return jwtService.generateToken(user);
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.email(),
-                request.password()
-        ));
-        User user = userRepository.findByEmail(request.email()).orElseThrow();
-        String jwt = jwtService.generateToken(user);
-        return new AuthenticationResponse(jwt);
+    public LoginResult authenticate(String email, String password) {
+        Optional<User> result = userRepository.findByEmail(email);
+        if (result.isEmpty()) {
+            throw new UserNotFoundException(HttpStatus.NOT_FOUND.value(), "Email does not exist");
+        }
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password)
+        );
+        User user = result.get();
+
+        return new LoginResult(jwtService.generateToken(user), user.getNickname());
     }
 }
