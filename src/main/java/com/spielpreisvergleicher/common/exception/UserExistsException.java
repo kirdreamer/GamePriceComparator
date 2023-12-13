@@ -1,7 +1,7 @@
 package com.spielpreisvergleicher.common.exception;
 
-public class UserExistsException extends RuntimeException {
-    public UserExistsException(String message) {
-        super(message);
+public class UserExistsException extends HttpException {
+    public UserExistsException(int code, String message) {
+        super(code, message);
     }
 }
