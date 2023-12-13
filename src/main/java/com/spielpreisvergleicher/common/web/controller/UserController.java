@@ -1,5 +1,8 @@
 package com.spielpreisvergleicher.common.web.controller;
 
+import com.spielpreisvergleicher.common.entity.user.User;
+import com.spielpreisvergleicher.common.service.UserService;
+import com.spielpreisvergleicher.common.web.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -17,16 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController {
 
-//    private final UserService userService;
+    private final UserService userService;
 
     @GetMapping()
-    public ResponseEntity<String> getLoggedInUser(
+    public ResponseEntity<UserResponse> getLoggedInUser(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader
     ) {
-        log.info("Received Request to get logged in User" + authHeader);
-//        String token = userService.getLoggedInUser(authHeader);
+        log.info("Received Request to get logged in User");
 
-        return ResponseEntity.ok(authHeader);
+        String token = authHeader.substring(7);
+        User user  = userService.getLoggedInUser(token);
+
+        return ResponseEntity.ok(new UserResponse(user));
     }
 
 }
