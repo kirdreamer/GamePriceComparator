@@ -31,7 +31,9 @@ public class UserController {
         String token = authHeader.substring(7);
         User user  = userService.getLoggedInUser(token);
 
-        return ResponseEntity.ok(new UserResponse(user));
+        return ResponseEntity.ok(
+                new UserResponse(user.getEmail(), user.getNickname())
+        );
     }
 
 }
