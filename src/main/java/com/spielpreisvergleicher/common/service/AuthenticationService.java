@@ -4,12 +4,14 @@ import com.spielpreisvergleicher.common.config.JwtService;
 import com.spielpreisvergleicher.common.dto.LoginResult;
 import com.spielpreisvergleicher.common.entity.user.Role;
 import com.spielpreisvergleicher.common.entity.user.User;
+import com.spielpreisvergleicher.common.exception.IncorrectCredentialsException;
 import com.spielpreisvergleicher.common.exception.UserExistsException;
 import com.spielpreisvergleicher.common.exception.UserNotFoundException;
 import com.spielpreisvergleicher.common.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -47,9 +49,13 @@ public class AuthenticationService {
             throw new UserNotFoundException(HttpStatus.NOT_FOUND.value(), "Email does not exist");
         }
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password)
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, password)
+            );
+        } catch (BadCredentialsException e) {
+            throw new IncorrectCredentialsException(HttpStatus.BAD_REQUEST.value(), "Email or Password is incorrect");
+        }
         User user = result.get();
 
         return new LoginResult(jwtService.generateToken(user), user.getNickname());
