@@ -22,7 +22,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                // might needed for other endpoints; if there are any problems with CORS on Frontend side -> uncomment
+                // .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("/api/v1/auth/**").permitAll();
                     request.anyRequest().authenticated();

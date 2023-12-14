@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -59,5 +60,9 @@ public class AuthenticationService {
         User user = result.get();
 
         return new LoginResult(jwtService.generateToken(user), user.getNickname());
+    }
+
+    public boolean isLoggedIn(String token, UserDetails userDetails) {
+        return jwtService.isTokenValid(token, userDetails);
     }
 }

@@ -1,19 +1,19 @@
 package com.spielpreisvergleicher.common.web.controller;
 
 import com.spielpreisvergleicher.common.dto.LoginResult;
+import com.spielpreisvergleicher.common.entity.user.User;
 import com.spielpreisvergleicher.common.service.AuthenticationService;
 import com.spielpreisvergleicher.common.web.request.AuthenticationRequest;
 import com.spielpreisvergleicher.common.web.request.RegisterRequest;
 import com.spielpreisvergleicher.common.web.response.AuthenticationResponse;
+import com.spielpreisvergleicher.common.web.response.IsLoggedInResponse;
 import com.spielpreisvergleicher.common.web.response.RegisterResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -42,5 +42,20 @@ public class AuthenticationController {
         LoginResult result = authenticationService.authenticate(request.email(), request.password());
 
         return ResponseEntity.ok(new AuthenticationResponse(result.token(), result.nickname()));
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<IsLoggedInResponse> getLoggedInUser(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader,
+            Authentication authentication
+    ) {
+        log.info("Received Request to get logged in User");
+
+        User user = (User) authentication.getPrincipal();
+        String token = authHeader.substring(7);
+
+        return ResponseEntity.ok(
+                new IsLoggedInResponse(user.getEmail(), user.getNickname(), authenticationService.isLoggedIn(token, user))
+        );
     }
 }
