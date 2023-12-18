@@ -25,7 +25,7 @@ public class SecurityConfiguration {
                 // might needed for other endpoints; if there are any problems with CORS on Frontend side -> uncomment
                 // .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/api/v1/auth/**").permitAll();
+                    request.requestMatchers("/api/v1/**").permitAll();
                     request.anyRequest().authenticated();
                 }).sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
