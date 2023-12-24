@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-public class GameGetterSteamImpl {
+public class GameGetterSteam {
 
     public void getGamesByName(String name) {
 

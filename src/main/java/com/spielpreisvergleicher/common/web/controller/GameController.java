@@ -25,6 +25,7 @@ public class GameController {
     @GetMapping("/get-all-games")
     public List<GameResponse> getAllGames() {
         log.info("Received Request to get all games");
+        gameService.getAllSteamGamesAndSaveIntoDatabase();
         return testList;
     }
 

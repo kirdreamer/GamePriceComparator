@@ -15,7 +15,7 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class GameGetterGogImpl {
+public class GameGetterGog {
     private final RestTemplate restTemplate;
 
     @Value("${gog.base.products.url}")
@@ -24,7 +24,7 @@ public class GameGetterGogImpl {
     public GogResponse getGamesByName(String name) {
         String parameters = "mediaType=game&search=";
         String finalUrl = String.format("%s%s%s", productsUrl, parameters, URLEncoder.encode(name, StandardCharsets.UTF_8));
-        log.info("By url {} was sent request GET request", finalUrl);
+        log.info("By url {} was sent GET request", finalUrl);
         GogResponse gogResponse = restTemplate.getForObject(finalUrl, GogResponse.class);
         if (Objects.isNull(gogResponse))
             return new GogResponse(new ArrayList<>());
