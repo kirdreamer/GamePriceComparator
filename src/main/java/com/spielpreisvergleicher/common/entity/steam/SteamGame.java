@@ -1,7 +1,6 @@
 package com.spielpreisvergleicher.common.entity.steam;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,8 +17,6 @@ import lombok.NoArgsConstructor;
 public class SteamGame {
 
     @Id
-    @GeneratedValue
-    private Integer id;
     private Integer appid;
     private String name;
 }

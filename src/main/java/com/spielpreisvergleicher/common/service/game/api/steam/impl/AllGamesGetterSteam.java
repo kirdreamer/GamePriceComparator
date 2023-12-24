@@ -1,11 +1,11 @@
 package com.spielpreisvergleicher.common.service.game.api.steam.impl;
 
 import com.spielpreisvergleicher.common.dto.SteamAllGamesResponse;
+import com.spielpreisvergleicher.common.service.game.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -14,14 +14,14 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class AllGamesGetterSteam {
-    private final RestTemplate restTemplate;
+    private final ExternalApiService externalApiService;
 
     @Value("${steam.all.games.url}")
     private String allGamesUrl;
 
     public SteamAllGamesResponse getAllGames() {
-        log.info("By url {} was sent GET request", allGamesUrl);
-        SteamAllGamesResponse steamAllGamesResponse = restTemplate.getForObject(allGamesUrl, SteamAllGamesResponse.class);
+        SteamAllGamesResponse steamAllGamesResponse =
+                externalApiService.makeGetRequest(allGamesUrl, SteamAllGamesResponse.class);
 
         if (Objects.isNull(steamAllGamesResponse))
             return new SteamAllGamesResponse(new SteamAllGamesResponse.AppList(new ArrayList<>()));
