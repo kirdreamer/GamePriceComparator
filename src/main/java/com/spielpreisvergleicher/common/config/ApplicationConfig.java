@@ -2,10 +2,7 @@ package com.spielpreisvergleicher.common.config;
 
 import com.spielpreisvergleicher.common.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -19,7 +16,10 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan(basePackages = "com.spielpreisvergleicher")
-@PropertySource("classpath:gog.properties")
+@PropertySources({
+    @PropertySource("classpath:gog.properties"),
+    @PropertySource("classpath:steam.properties")
+})
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
