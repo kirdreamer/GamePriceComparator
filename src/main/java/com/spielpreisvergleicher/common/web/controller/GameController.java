@@ -1,5 +1,6 @@
 package com.spielpreisvergleicher.common.web.controller;
 
+import com.spielpreisvergleicher.common.service.game.GameService;
 import com.spielpreisvergleicher.common.web.response.game.GameInfoResponse;
 import com.spielpreisvergleicher.common.web.response.game.GameResponse;
 import com.spielpreisvergleicher.common.web.response.game.PlatformsResponse;
@@ -18,6 +19,7 @@ import java.util.List;
 @Slf4j
 public class GameController {
 
+    private final GameService gameService;
     List<GameResponse> testList = new ArrayList<>();
 
     @GetMapping("/get-all-games")
@@ -29,6 +31,7 @@ public class GameController {
     @GetMapping("/get-game-list")
     public List<GameResponse> getGameList(@RequestParam("game") String nameGame) {
         log.info("Received Request to get a list of games with name {}", nameGame);
+        gameService.getGamesByName(nameGame);
         return testList;
     }
     @GetMapping("/get-game")
