@@ -7,7 +7,8 @@ public record GogResponse (List<Products> products){
             Price price,
             Integer id,
             String title,
-            String url
+            String url,
+            Platforms worksOn
     ) {
         public record Price(
                 Double baseAmount,
@@ -17,5 +18,10 @@ public record GogResponse (List<Products> products){
                 Boolean isFree
         ) {
         }
+        public record Platforms(
+                String Windows,
+                String Mac,
+                String Linux
+        ){}
     }
 }

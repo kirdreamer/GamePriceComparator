@@ -1,9 +1,10 @@
 package com.spielpreisvergleicher.common.service.game.api.steam.impl;
 
-import com.spielpreisvergleicher.common.service.game.api.AllGamesGetter;
+import org.springframework.stereotype.Component;
 
-public class AllGamesGetterSteamImpl implements AllGamesGetter {
-    @Override
+@Component
+public class AllGamesGetterSteamImpl {
+
     public void getAllGames() {
 
     }
