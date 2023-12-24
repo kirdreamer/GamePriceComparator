@@ -33,15 +33,13 @@ public class GameService {
     }
 
     public void getAllSteamGamesAndSaveIntoDatabase() {
-        SteamAllGamesResponse steamAllGamesResponse = allGamesGetterSteam.getAllGames();
         List<SteamGame> steamGameList = new ArrayList<>();
-        for (SteamAllGamesResponse.AppList.App app : steamAllGamesResponse.applist().apps()) {
+
+        for (SteamAllGamesResponse.AppList.App app : allGamesGetterSteam.getAllGames().applist().apps())
             steamGameList.add(steamGameMapper.appToSteamGame(app));
-        }
+
         log.info("Trying to save all received games from steam into database...");
         steamGameRepository.saveAll(steamGameList);
         log.info("All information was successfully saved");
-
-        return;
     }
 }
