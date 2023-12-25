@@ -1,11 +1,11 @@
 package com.spielpreisvergleicher.common.service.game.api.gog.impl;
 
 import com.spielpreisvergleicher.common.dto.GogResponse;
+import com.spielpreisvergleicher.common.service.game.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -16,23 +16,21 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class GameGetterGog {
-    private final RestTemplate restTemplate;
+    private final ExternalApiService externalApiService;
 
     @Value("${gog.base.products.url}")
     private String productsUrl;
 
     public GogResponse getGamesByName(String name) {
-        String parameters = "mediaType=game&search=";
-        String finalUrl = String.format("%s%s%s", productsUrl, parameters, URLEncoder.encode(name, StandardCharsets.UTF_8));
-        log.info("By url {} was sent GET request", finalUrl);
-        GogResponse gogResponse = restTemplate.getForObject(finalUrl, GogResponse.class);
+        String parameters = String.format("?search=%s",
+                URLEncoder.encode(name, StandardCharsets.UTF_8));
+        String finalUrl = String.format("%s%s", productsUrl, parameters);
+
+        GogResponse gogResponse = externalApiService.makeGetRequest(finalUrl, GogResponse.class);
+
         if (Objects.isNull(gogResponse))
             return new GogResponse(new ArrayList<>());
         log.info("Was received {} products", gogResponse.products().size());
         return gogResponse;
-    }
-
-    public void getGameById(Integer id) {
-
     }
 }

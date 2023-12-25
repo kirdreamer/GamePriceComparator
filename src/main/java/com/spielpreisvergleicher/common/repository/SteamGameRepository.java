@@ -12,5 +12,5 @@ public interface SteamGameRepository extends JpaRepository<SteamGame, Integer> {
 
     Optional<SteamGame> findByAppid(Integer appid);
 
-    Optional<List<SteamGame>> findByName(String name);
+    Optional<List<SteamGame>> findByNameIgnoreCaseContaining(String name);
 }
