@@ -27,10 +27,8 @@ public class GameGetterGog {
         String parameters = String.format("?search=%s", URLEncoder.encode(name, StandardCharsets.UTF_8));
         String finalUrl = String.format("%s%s", productsUrl, parameters);
         return externalApiService.makeGetRequest(finalUrl, GogResponse.class).products().stream()
-                .filter(
-                        product -> Arrays.stream(Strings.delimitedListToStringArray(name, " "))
-                                .allMatch(product.title()::contains)
-                )
+                .filter(product -> Arrays.stream(Strings.delimitedListToStringArray(name, " "))
+                                .allMatch(product.title()::contains))
                 .toList();
     }
 }
