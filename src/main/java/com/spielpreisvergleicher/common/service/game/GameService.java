@@ -1,6 +1,6 @@
 package com.spielpreisvergleicher.common.service.game;
 
-import com.spielpreisvergleicher.common.dto.GogResponse;
+import com.spielpreisvergleicher.common.dto.GogProducts;
 import com.spielpreisvergleicher.common.dto.SteamGameResponse;
 import com.spielpreisvergleicher.common.service.game.api.gog.impl.GameGetterGog;
 import com.spielpreisvergleicher.common.service.game.api.steam.impl.GameGetterSteam;
@@ -18,8 +18,10 @@ public class GameService {
     private final GameGetterGog gameGetterGog;
 
     public void getGamesByName(String name) { //TODO change to GameResponse
-        GogResponse gogResponse = gameGetterGog.getGamesByName(name);
+        List<GogProducts> gogGames = gameGetterGog.getGamesByName(name);
+        log.info("Received {} products from GOG", gogGames.size());
         List<SteamGameResponse> steamGames = gameGetterSteam.getGamesByName(name);
+        log.info("Received {} products from Steam", gogGames.size());
         return;
         //TODO combine common games
         //TODO create list Response for each found game

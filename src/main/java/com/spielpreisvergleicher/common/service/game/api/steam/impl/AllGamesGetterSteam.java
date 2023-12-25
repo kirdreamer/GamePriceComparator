@@ -25,7 +25,7 @@ public class AllGamesGetterSteam {
 
         if (Objects.isNull(steamAllGamesResponse))
             return new SteamAllGamesResponse(new SteamAllGamesResponse.AppList(new ArrayList<>()));
-        log.info("Was received {} games", steamAllGamesResponse.applist().apps().size());
+        log.info("Was received {} games from global Steam list", steamAllGamesResponse.applist().apps().size());
         return steamAllGamesResponse;
     }
 }
