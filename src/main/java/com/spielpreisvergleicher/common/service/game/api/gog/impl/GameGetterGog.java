@@ -22,7 +22,7 @@ public class GameGetterGog {
     private String productsUrl;
 
     public GogResponse getGamesByName(String name) {
-        String parameters = String.format("?mediaType=game&search=%s",
+        String parameters = String.format("?search=%s",
                 URLEncoder.encode(name, StandardCharsets.UTF_8));
         String finalUrl = String.format("%s%s", productsUrl, parameters);
 
@@ -32,9 +32,5 @@ public class GameGetterGog {
             return new GogResponse(new ArrayList<>());
         log.info("Was received {} products", gogResponse.products().size());
         return gogResponse;
-    }
-
-    public void getGameById(Integer id) {
-
     }
 }

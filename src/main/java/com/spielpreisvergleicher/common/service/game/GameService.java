@@ -19,7 +19,6 @@ public class GameService {
 
     public void getGamesByName(String name) { //TODO change to GameResponse
         GogResponse gogResponse = gameGetterGog.getGamesByName(name);
-
         List<SteamGameResponse> steamGames = gameGetterSteam.getGamesByName(name);
         return;
         //TODO combine common games
