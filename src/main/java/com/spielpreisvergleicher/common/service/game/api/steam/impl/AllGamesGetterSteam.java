@@ -1,6 +1,6 @@
 package com.spielpreisvergleicher.common.service.game.api.steam.impl;
 
-import com.spielpreisvergleicher.common.dto.SteamAllGamesResponse;
+import com.spielpreisvergleicher.common.dto.api.response.SteamAllGamesResponse;
 import com.spielpreisvergleicher.common.service.game.ExternalApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

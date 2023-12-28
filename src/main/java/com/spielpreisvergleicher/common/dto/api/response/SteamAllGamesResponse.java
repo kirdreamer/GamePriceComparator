@@ -1,4 +1,4 @@
-package com.spielpreisvergleicher.common.dto;
+package com.spielpreisvergleicher.common.dto.api.response;
 
 import java.util.List;
 

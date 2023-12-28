@@ -1,4 +1,4 @@
-package com.spielpreisvergleicher.common.dto;
+package com.spielpreisvergleicher.common.dto.api.response;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,20 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public record SteamGameResponse(
         String type,
         String name,
-        String header_image,
+        @JsonProperty("steam_appid")
+        Integer id,
+        @JsonProperty("header_image")
+        String image,
         Platforms platforms,
         Boolean is_free,
         String detailed_description,
         String about_the_game,
         String short_description,
-        Price price_overview
+        @JsonProperty("price_overview")
+        Price price
 ) {
     public record Price(
-            String currency,
-            Integer initial,
+            @JsonProperty("initial")
+            Integer initial_value,
             @JsonProperty("final")
             Integer final_value,
-            Integer discount_percent
+            Integer discount_percent,
+            String currency
     ) {
     }
 
