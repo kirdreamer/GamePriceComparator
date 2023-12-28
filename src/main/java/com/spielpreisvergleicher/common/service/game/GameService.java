@@ -1,33 +1,41 @@
 package com.spielpreisvergleicher.common.service.game;
 
-import com.spielpreisvergleicher.common.dto.GogProducts;
-import com.spielpreisvergleicher.common.dto.SteamGameResponse;
-import com.spielpreisvergleicher.common.service.game.api.gog.impl.GameGetterGog;
-import com.spielpreisvergleicher.common.service.game.api.steam.impl.GameGetterSteam;
+import com.spielpreisvergleicher.common.dto.api.response.GogProduct;
+import com.spielpreisvergleicher.common.dto.api.response.SteamGameResponse;
+import com.spielpreisvergleicher.common.service.game.api.gog.impl.GogService;
+import com.spielpreisvergleicher.common.service.game.api.steam.impl.SteamService;
+import com.spielpreisvergleicher.common.web.response.game.GameResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class GameService {
-    private final GameGetterSteam gameGetterSteam;
-    private final GameGetterGog gameGetterGog;
+    private final SteamService steamService;
+    private final GogService gogService;
 
-    public void getGamesByName(String name) { //TODO change to GameResponse
-        List<GogProducts> gogGames = gameGetterGog.getGamesByName(name);
+    public List<GameResponse> getGamesByName(String name) {
+        List<GogProduct> gogGames = gogService.getGamesByName(name);
         log.info("Received {} products from GOG", gogGames.size());
-        List<SteamGameResponse> steamGames = gameGetterSteam.getGamesByName(name);
-        log.info("Received {} products from Steam", gogGames.size());
-        return;
-        //TODO combine common games
-        //TODO create list Response for each found game
+
+        List<SteamGameResponse> steamGames = steamService.getGamesByName(name);
+        log.info("Received {} products from Steam", steamGames.size());
+
+        Map<String, GameResponse> gameList = steamService.prepareGameListFromSteam(steamGames);
+        gogService.addGogGameIntoGameList(gogGames, gameList);
+        log.info("Map gameList contains {} products", gameList.size());
+
+        return new ArrayList<>(gameList.values());
     }
 
     public void getAllGamesAndSaveIntoDatabase() {
-        gameGetterSteam.getAllSteamGamesAndSaveIntoDatabase();
+        steamService.getAllSteamGamesAndSaveIntoDatabase();
     }
+
 }
