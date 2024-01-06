@@ -1,6 +1,7 @@
 package com.spielpreisvergleicher.common.web.controller;
 
-import com.spielpreisvergleicher.common.web.request.NewFavoriteGameRequest;
+import com.spielpreisvergleicher.common.service.FavoriteGameService;
+import com.spielpreisvergleicher.common.web.request.FavoriteGameRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 public class FavoriteController {
+    private final FavoriteGameService favoriteGameService;
 
-    @PostMapping("/add-favorite")
+    @PostMapping("/add")
     public ResponseEntity<Void> addFavoriteGameToUser(
-            @RequestBody NewFavoriteGameRequest newFavoriteGameRequest
+            @RequestBody FavoriteGameRequest favoriteGameRequest
     ) {
         log.info("Received Request to add a new Favorite Game with name {} from user {}",
-                newFavoriteGameRequest.name(), newFavoriteGameRequest.email());
-
+                favoriteGameRequest.name(), favoriteGameRequest.email());
+        favoriteGameService.saveFavoriteGameByEmail(favoriteGameRequest);
         return ResponseEntity.ok().build();
     }
 }
