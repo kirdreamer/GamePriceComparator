@@ -18,7 +18,7 @@ public class FavoriteController {
             @RequestBody NewFavoriteGameRequest newFavoriteGameRequest
     ) {
         log.info("Received Request to add a new Favorite Game with name {} from user {}",
-                newFavoriteGameRequest.favoriteGame().name(), newFavoriteGameRequest.email());
+                newFavoriteGameRequest.name(), newFavoriteGameRequest.email());
 
         return ResponseEntity.ok().build();
     }
