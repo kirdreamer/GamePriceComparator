@@ -33,9 +33,4 @@ public class GameService {
 
         return new ArrayList<>(gameList.values());
     }
-
-    public void getAllGamesAndSaveIntoDatabase() {
-        steamService.getAllSteamGamesAndSaveIntoDatabase();
-    }
-
 }
