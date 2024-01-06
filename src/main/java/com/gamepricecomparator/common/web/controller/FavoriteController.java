@@ -23,8 +23,7 @@ public class FavoriteController {
     public ResponseEntity<Void> addFavoriteGameToUser(
             @RequestBody FavoriteGameRequest favoriteGameRequest
     ) {
-        log.info("Received Request to add a new Favorite Game with name {} from user {}",
-                favoriteGameRequest.name(), favoriteGameRequest.email());
+        log.info("Received Request to add a new Favorite Game with name {}", favoriteGameRequest.name());
         favoriteGameService.saveFavoriteGameByEmail(favoriteGameRequest);
         return ResponseEntity.ok().build();
     }
