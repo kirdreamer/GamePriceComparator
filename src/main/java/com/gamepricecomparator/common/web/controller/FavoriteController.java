@@ -53,6 +53,4 @@ public class FavoriteController {
         favoriteGameService.deleteFavoriteGameByEmailAndName(email, name);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
-
-
 }
