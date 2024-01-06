@@ -36,7 +36,7 @@ public class FavoriteController {
     }
 
     @GetMapping("/get-game")
-    public ResponseEntity<FavoriteGameResponse> getFavoriteListByEmail(
+    public ResponseEntity<FavoriteGameResponse> getFavoriteGameByEmailAndName(
             @RequestParam("email") String email,
             @RequestParam("name") String name
     ) {
@@ -45,7 +45,7 @@ public class FavoriteController {
     }
 
     @DeleteMapping("/delete-game")
-    public ResponseEntity<Void> deleteFavoriteListByEmail(
+    public ResponseEntity<Void> deleteFavoriteGameByEmailAndName(
             @RequestParam("email") String email,
             @RequestParam("name") String name
     ) {
