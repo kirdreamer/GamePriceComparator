@@ -51,8 +51,13 @@ public class FavoriteGameService {
 
     public FavoriteGameResponse getFavoriteGameByEmailAndName(String email, String name) {
         Optional<FavoriteGame> favoriteGame = favoriteGameRepository.findByEmailAndNameIgnoreCase(email, name);
+
         if (favoriteGame.isEmpty())
             throw new FavoriteGameNotFoundException(HttpStatus.NOT_FOUND.value(), "Favorite game does not exist");
+
         return favoriteGameMapper.favoriteGameToFavoriteGameResponse(favoriteGame.get());
+    }
+    public void deleteFavoriteGameByEmailAndName(String email, String name) {
+        favoriteGameRepository.deleteByEmailAndName(email, name);
     }
 }

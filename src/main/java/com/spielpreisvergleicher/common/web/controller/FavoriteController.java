@@ -5,6 +5,7 @@ import com.spielpreisvergleicher.common.web.request.FavoriteGameRequest;
 import com.spielpreisvergleicher.common.web.response.FavoriteGameResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,19 @@ public class FavoriteController {
             @RequestParam("email") String email,
             @RequestParam("name") String name
     ) {
-        log.info("Received Request to get the favorite game for user {}", email);
+        log.info("Received Request to get the favorite game {} for user {}", name, email);
         return ResponseEntity.ok(favoriteGameService.getFavoriteGameByEmailAndName(email, name));
     }
+
+    @DeleteMapping("/delete-game")
+    public ResponseEntity<Void> deleteFavoriteListByEmail(
+            @RequestParam("email") String email,
+            @RequestParam("name") String name
+    ) {
+        log.info("Received Request to delete the favorite game {} for user {}", name, email);
+        favoriteGameService.deleteFavoriteGameByEmailAndName(email, name);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+
 }
