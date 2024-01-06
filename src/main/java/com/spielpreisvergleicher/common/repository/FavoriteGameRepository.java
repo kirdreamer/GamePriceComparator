@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface FavoriteGameRepository extends JpaRepository<FavoriteGame, Long> {
-    Optional<List<FavoriteGame>> findByEmailIgnoreCaseContaining(String email);
+    Optional<List<FavoriteGame>> findByEmailIgnoreCase(String email);
+    Optional<FavoriteGame> findByEmailAndNameIgnoreCase(String email, String name);
 }

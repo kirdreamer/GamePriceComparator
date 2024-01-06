@@ -33,4 +33,13 @@ public class FavoriteController {
         log.info("Received Request to get the list of Favorite Games for user {}", email);
         return ResponseEntity.ok(favoriteGameService.getFavoriteListByEmail(email));
     }
+
+    @GetMapping("/get-game")
+    public ResponseEntity<FavoriteGameResponse> getFavoriteListByEmail(
+            @RequestParam("email") String email,
+            @RequestParam("name") String name
+    ) {
+        log.info("Received Request to get the favorite game for user {}", email);
+        return ResponseEntity.ok(favoriteGameService.getFavoriteGameByEmailAndName(email, name));
+    }
 }
