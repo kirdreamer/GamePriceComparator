@@ -1,7 +1,9 @@
 package com.gamepricecomparator.common.service;
 
+import com.gamepricecomparator.common.config.JwtService;
 import com.gamepricecomparator.common.entity.FavoriteGame;
 import com.gamepricecomparator.common.exception.FavoriteGameNotFoundException;
+import com.gamepricecomparator.common.exception.IncorrectTokenException;
 import com.gamepricecomparator.common.mapper.FavoriteGameMapper;
 import com.gamepricecomparator.common.repository.FavoriteGameRepository;
 import com.gamepricecomparator.common.web.request.FavoriteGameRequest;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -21,18 +24,30 @@ import java.util.Optional;
 public class FavoriteGameService {
     private final FavoriteGameRepository favoriteGameRepository;
     private final FavoriteGameMapper favoriteGameMapper;
+    private final JwtService jwtService;
 
     public void saveFavoriteGameByEmail(FavoriteGameRequest favoriteGameRequest) {
+        if (Objects.isNull(favoriteGameRequest.token()))
+            throw new IncorrectTokenException(401, "Token wasn't found");
+
+        FavoriteGame favoriteGame = FavoriteGame.builder()
+                .email(jwtService.extractUsername(favoriteGameRequest.token()))
+                .name(favoriteGameRequest.name())
+                .steamId(favoriteGameRequest.steamId())
+                .gogId(favoriteGameRequest.gogId())
+                .build();
+
         if (favoriteGameRepository.findByEmailAndNameIgnoreCase(
-                favoriteGameRequest.email(), favoriteGameRequest.name()).isPresent()) {
+                favoriteGame.getEmail(), favoriteGame.getName()).isPresent()) {
             log.info("Favorite game with name {} already exists for email {}",
-                    favoriteGameRequest.name(), favoriteGameRequest.email());
+                    favoriteGame.getName(), favoriteGame.getEmail());
             return;
         }
 
-        favoriteGameRepository.save(favoriteGameMapper.newFavoriteGameRequestToFavoriteGame(favoriteGameRequest));
+        log.info("Trying to add game with name {} for user {}...", favoriteGame.getName(), favoriteGame.getEmail());
+        favoriteGameRepository.save(favoriteGame);
         log.info("Favorite game with name {} was successfully saved for email {}",
-                favoriteGameRequest.name(), favoriteGameRequest.email());
+                favoriteGame.getName(), favoriteGame.getEmail());
     }
 
     public List<FavoriteGameResponse> getFavoriteListByEmail(String email) {
@@ -57,6 +72,7 @@ public class FavoriteGameService {
 
         return favoriteGameMapper.favoriteGameToFavoriteGameResponse(favoriteGame.get());
     }
+
     public void deleteFavoriteGameByEmailAndName(String email, String name) {
         favoriteGameRepository.deleteByEmailAndName(email, name);
     }
