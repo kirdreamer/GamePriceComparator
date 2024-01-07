@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.web.controller;
 
-import com.gamepricecomparator.common.dto.LoginResultDto;
+import com.gamepricecomparator.common.dto.LoginResultDTO;
 import com.gamepricecomparator.common.entity.user.User;
 import com.gamepricecomparator.common.service.AuthenticationService;
 import com.gamepricecomparator.common.web.request.AuthenticationRequest;
@@ -39,7 +39,7 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request
     ) {
         log.info("Received Request to authenticate a User");
-        LoginResultDto result = authenticationService.authenticate(request.email(), request.password());
+        LoginResultDTO result = authenticationService.authenticate(request.email(), request.password());
 
         return ResponseEntity.ok(new AuthenticationResponse(result.token(), result.nickname()));
     }

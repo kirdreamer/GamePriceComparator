@@ -1,7 +1,7 @@
 package com.gamepricecomparator.common.service;
 
 import com.gamepricecomparator.common.config.JwtService;
-import com.gamepricecomparator.common.dto.LoginResultDto;
+import com.gamepricecomparator.common.dto.LoginResultDTO;
 import com.gamepricecomparator.common.entity.user.Role;
 import com.gamepricecomparator.common.entity.user.User;
 import com.gamepricecomparator.common.exception.IncorrectCredentialsException;
@@ -44,7 +44,7 @@ public class AuthenticationService {
         return jwtService.generateToken(user);
     }
 
-    public LoginResultDto authenticate(String email, String password) {
+    public LoginResultDTO authenticate(String email, String password) {
         Optional<User> result = userRepository.findByEmail(email);
         if (result.isEmpty()) {
             throw new UserNotFoundException(HttpStatus.NOT_FOUND.value(), "Email does not exist");
@@ -59,7 +59,7 @@ public class AuthenticationService {
         }
         User user = result.get();
 
-        return new LoginResultDto(jwtService.generateToken(user), user.getNickname());
+        return new LoginResultDTO(jwtService.generateToken(user), user.getNickname());
     }
 
     public boolean isLoggedIn(String token, UserDetails userDetails) {

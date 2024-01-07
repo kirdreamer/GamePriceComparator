@@ -26,12 +26,12 @@ public class FavoriteGameService {
     private final FavoriteGameMapper favoriteGameMapper;
     private final JwtService jwtService;
 
-    public void saveFavoriteGameByEmail(FavoriteGameRequest favoriteGameRequest) {
-        if (Objects.isNull(favoriteGameRequest.token()))
+    public void saveFavoriteGameByEmail(String token, FavoriteGameRequest favoriteGameRequest) {
+        if (Objects.isNull(token))
             throw new IncorrectTokenException(401, "Token wasn't found");
 
         FavoriteGame favoriteGame = FavoriteGame.builder()
-                .email(jwtService.extractUsername(favoriteGameRequest.token()))
+                .email(jwtService.extractUsername(token))
                 .name(favoriteGameRequest.name())
                 .steamId(favoriteGameRequest.steamId())
                 .gogId(favoriteGameRequest.gogId())
@@ -50,9 +50,11 @@ public class FavoriteGameService {
                 favoriteGame.getName(), favoriteGame.getEmail());
     }
 
-    public List<FavoriteGameResponse> getFavoriteListByEmail(String email) {
+    public List<FavoriteGameResponse> getFavoriteListByEmail(String token) {
         List<FavoriteGameResponse> favoriteGames = new ArrayList<>();
-        Optional<List<FavoriteGame>> favoriteGameList = favoriteGameRepository.findByEmailIgnoreCase(email);
+        Optional<List<FavoriteGame>> favoriteGameList = favoriteGameRepository.findByEmailIgnoreCase(
+                jwtService.extractUsername(token)
+        );
 
         if (favoriteGameList.isEmpty()) return favoriteGames;
 
@@ -64,8 +66,9 @@ public class FavoriteGameService {
         return favoriteGames;
     }
 
-    public FavoriteGameResponse getFavoriteGameByEmailAndName(String email, String name) {
-        Optional<FavoriteGame> favoriteGame = favoriteGameRepository.findByEmailAndNameIgnoreCase(email, name);
+    public FavoriteGameResponse getFavoriteGameByEmailAndName(String token, String name) {
+        Optional<FavoriteGame> favoriteGame = favoriteGameRepository.findByEmailAndNameIgnoreCase(
+                jwtService.extractUsername(token), name);
 
         if (favoriteGame.isEmpty())
             throw new FavoriteGameNotFoundException(HttpStatus.NOT_FOUND.value(), "Favorite game does not exist");
@@ -73,7 +76,7 @@ public class FavoriteGameService {
         return favoriteGameMapper.favoriteGameToFavoriteGameResponse(favoriteGame.get());
     }
 
-    public void deleteFavoriteGameByEmailAndName(String email, String name) {
-        favoriteGameRepository.deleteByEmailAndName(email, name);
+    public void deleteFavoriteGameByEmailAndName(String token, String name) {
+        favoriteGameRepository.deleteByEmailAndName(jwtService.extractUsername(token), name);
     }
 }
