@@ -1,4 +1,4 @@
-package com.gamepricecomparator.common.service;
+package com.gamepricecomparator.common.service.favorite;
 
 import com.gamepricecomparator.common.config.JwtService;
 import com.gamepricecomparator.common.entity.FavoriteGame;

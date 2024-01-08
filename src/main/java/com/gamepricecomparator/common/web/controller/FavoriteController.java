@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.web.controller;
 
-import com.gamepricecomparator.common.service.FavoriteGameService;
+import com.gamepricecomparator.common.service.favorite.FavoriteGameService;
 import com.gamepricecomparator.common.web.request.FavoriteGameRequest;
 import com.gamepricecomparator.common.web.response.FavoriteGameResponse;
 import lombok.RequiredArgsConstructor;

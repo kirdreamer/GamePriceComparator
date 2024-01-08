@@ -1,0 +1,20 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/database
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driverClassName=org.postgresql.Driver
+
+#To create tables at start and delete at stop
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.database=postgresql
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=
+spring.mail.password=
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+jwt.secret.key=
+#5 Minutes (300 Seconds)
+jwt.token.expiration=1000*60*5
