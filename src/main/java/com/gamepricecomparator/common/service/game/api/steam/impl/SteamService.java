@@ -81,11 +81,34 @@ public class SteamService {
         return gameList;
     }
 
-    private Double keepTwoDigitAfterDecimal(double value) {
-        return Double.valueOf(String.format(Locale.US, "%.2f", value));
+    private void putSteamGameIntoMap(SteamGameResponse game, HashMap<String, GameResponse> gameList) {
+        log.debug("Trying to add a new product with name {} into the List...", game.name());
+        gameList.put(filterSymbolsInName(game.name()), getGameResponseFromSteamGameResponse(game));
+        log.debug("A new product with name {} was successfully added into the List", game.name());
     }
 
-    private void putSteamGameIntoMap(SteamGameResponse game, HashMap<String, GameResponse> gameList) {
+    public GameResponse getGameResponseFromSteamGameResponse(SteamGameResponse game) {
+        return GameResponse.builder()
+                .name(filterSymbolsInName(game.name()))
+                .type(game.type())
+                .image(game.image())
+                .platforms(platformsMapper.steamPlatformsToPlatformsResponse(game.platforms()))
+                .about_the_game(game.about_the_game())
+                .short_description(game.short_description())
+                .detailed_description(game.detailed_description())
+                .steam(getGameInfoResponseFromSteamGameResponse(game))
+                .build();
+    }
+
+    public GameInfoResponse getGameInfoResponseFromSteamGameResponse(SteamGameResponse game) {
+        return new GameInfoResponse(
+                game.id(),
+                getPriceResponseFromSteamGameResponse(game),
+                gamePageUrl + game.id()
+        );
+    }
+
+    public PriceResponse getPriceResponseFromSteamGameResponse(SteamGameResponse game) {
         PriceResponse priceResponse = null;
         if (Objects.nonNull(game.price())) {
             priceResponse = new PriceResponse(
@@ -104,26 +127,14 @@ public class SteamService {
                     "EUR",
                     true);
         }
-
-        gameList.put(filterSymbolsInName(game.name()),
-                GameResponse.builder()
-                        .name(filterSymbolsInName(game.name()))
-                        .type(game.type())
-                        .image(game.image())
-                        .platforms(platformsMapper.steamPlatformsToPlatformsResponse(game.platforms()))
-                        .about_the_game(game.about_the_game())
-                        .short_description(game.short_description())
-                        .detailed_description(game.detailed_description())
-                        .steam(new GameInfoResponse(
-                                game.id(),
-                                priceResponse,
-                                gamePageUrl + game.id()
-                        ))
-                        .build()
-        );
+        return priceResponse;
     }
 
     private String filterSymbolsInName(String name) {
         return name.replaceAll("®", "");
+    }
+
+    private Double keepTwoDigitAfterDecimal(double value) {
+        return Double.valueOf(String.format(Locale.US, "%.2f", value));
     }
 }

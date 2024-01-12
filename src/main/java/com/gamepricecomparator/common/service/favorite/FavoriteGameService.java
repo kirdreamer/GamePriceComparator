@@ -1,6 +1,7 @@
 package com.gamepricecomparator.common.service.favorite;
 
 import com.gamepricecomparator.common.config.JwtService;
+import com.gamepricecomparator.common.dto.projection.FavoriteGameInfoDTO;
 import com.gamepricecomparator.common.entity.FavoriteGame;
 import com.gamepricecomparator.common.exception.FavoriteGameNotFoundException;
 import com.gamepricecomparator.common.exception.IncorrectTokenException;
@@ -39,14 +40,14 @@ public class FavoriteGameService {
 
         if (favoriteGameRepository.findByEmailAndNameIgnoreCase(
                 favoriteGame.getEmail(), favoriteGame.getName()).isPresent()) {
-            log.info("Favorite game with name {} already exists for email {}",
+            log.warn("Favorite game with name {} already exists for email {}",
                     favoriteGame.getName(), favoriteGame.getEmail());
             return;
         }
 
-        log.info("Trying to add game with name {} for user {}...", favoriteGame.getName(), favoriteGame.getEmail());
+        log.debug("Trying to add game with name {} for user {}...", favoriteGame.getName(), favoriteGame.getEmail());
         favoriteGameRepository.save(favoriteGame);
-        log.info("Favorite game with name {} was successfully saved for email {}",
+        log.debug("Favorite game with name {} was successfully saved for email {}",
                 favoriteGame.getName(), favoriteGame.getEmail());
     }
 
@@ -78,5 +79,24 @@ public class FavoriteGameService {
 
     public void deleteFavoriteGameByEmailAndName(String token, String name) {
         favoriteGameRepository.deleteByEmailAndName(jwtService.extractUsername(token), name);
+    }
+
+    public String[] getAllEmailsByGame(String gameName) {
+        log.debug("Trying to extract all email in favorite games by name {} from Database...", gameName);
+        String[] emails = favoriteGameRepository.findEmailsByName(gameName)
+                .orElse(new ArrayList<>())
+                .toArray(String[]::new);
+        log.debug("Extracting was successfully completed");
+
+        return emails;
+    }
+
+    public List<FavoriteGameInfoDTO> getAllFavoriteGames() {
+        log.debug("Trying to extract all favorite games from Database...");
+        List<FavoriteGameInfoDTO> favoriteGameInfoDTOS = favoriteGameRepository.findAllFavoriteGames()
+                .orElse(new ArrayList<>());
+        log.debug("Extracting was successfully completed");
+
+        return favoriteGameInfoDTOS;
     }
 }

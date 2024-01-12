@@ -1,6 +1,7 @@
 package com.gamepricecomparator.common.web.controller;
 
 import com.gamepricecomparator.common.service.favorite.FavoriteGameService;
+import com.gamepricecomparator.common.service.favorite.FavoriteListEmailSenderService;
 import com.gamepricecomparator.common.web.request.FavoriteGameRequest;
 import com.gamepricecomparator.common.web.response.FavoriteGameResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
 @Slf4j
 public class FavoriteController {
     private final FavoriteGameService favoriteGameService;
+    private final FavoriteListEmailSenderService favoriteListEmailSenderService;
 
     @PostMapping("/add")
     public ResponseEntity<Void> addFavoriteGameToUser(
@@ -35,6 +37,8 @@ public class FavoriteController {
             @RequestHeader(HttpHeaders.AUTHORIZATION) String token
     ) {
         log.info("Received Request to get the list of Favorite Games");
+
+        favoriteListEmailSenderService.sendPriceAlarmEmail();
         return ResponseEntity.ok(favoriteGameService.getFavoriteListByEmail(token));
     }
 

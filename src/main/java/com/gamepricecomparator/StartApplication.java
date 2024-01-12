@@ -1,7 +1,6 @@
 package com.gamepricecomparator;
 
 import com.gamepricecomparator.common.component.SteamRequestExecutor;
-import com.gamepricecomparator.common.service.favorite.FavoriteListEmailSenderService;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +12,6 @@ import org.springframework.context.event.EventListener;
 @RequiredArgsConstructor
 public class StartApplication {
     private final SteamRequestExecutor steamRequestExecutor;
-    private final FavoriteListEmailSenderService favoriteListEmailSenderService;
 
     public static void main(String[] args) {
         SpringApplication.run(StartApplication.class, args);
@@ -21,11 +19,11 @@ public class StartApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void runSteamRequestExecutor() {
-        steamRequestExecutor.start();
+        //steamRequestExecutor.start();
     }
 
     @PreDestroy
     public void stopSteamRequestExecute() {
-        steamRequestExecutor.interrupt();
+        //steamRequestExecutor.interrupt();
     }
 }

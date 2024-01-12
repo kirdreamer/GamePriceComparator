@@ -7,6 +7,7 @@ import com.gamepricecomparator.common.mapper.PriceMapper;
 import com.gamepricecomparator.common.service.game.ExternalApiService;
 import com.gamepricecomparator.common.web.response.game.GameInfoResponse;
 import com.gamepricecomparator.common.web.response.game.GameResponse;
+import com.gamepricecomparator.common.web.response.game.PriceResponse;
 import io.jsonwebtoken.lang.Strings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -31,6 +33,13 @@ public class GogService {
     private String productsUrl;
     @Value("${gog.base.url}")
     private String baseUrl;
+
+    public GogProduct getGameById(Integer gogId, String name) {
+        return getGamesByName(name).stream()
+                .filter(gogProduct -> Objects.equals(gogProduct.id(), gogId))
+                .findFirst()
+                .orElse(null);
+    }
 
     public List<GogProduct> getGamesByName(String name) {
         String parameters = String.format("?search=%s", URLEncoder.encode(name, StandardCharsets.UTF_8));
@@ -52,31 +61,35 @@ public class GogService {
     }
 
     private void setGogProductIntoMap(GogProduct product, Map<String, GameResponse> gameList) {
-        log.debug("Trying to put product with name {} into the List...", product.name());
-        gameList.get(product.name()).setGog(new GameInfoResponse(
-                product.id(),
-                priceMapper.gogPriceToPriceResponse(product.price()),
-                baseUrl + product.link())
-        );
-
+        log.debug("Trying to put the product with name {} into the List...", product.name());
+        gameList.get(product.name()).setGog(getGameInfoResponseFromGogProduct(product));
         log.debug("Product with name {} was successfully put into the List", product.name());
     }
 
     private void putGogGameIntoMap(GogProduct product, Map<String, GameResponse> gameList) {
         log.debug("Trying to add a new product with name {} into the List...", product.name());
-        gameList.put(product.name(),
-                GameResponse.builder()
-                        .name(product.name())
-                        .image("https:" + product.image() + ".jpg")
-                        .platforms(platformsMapper.gogPlatformsToPlatformsResponse(product.platforms()))
-                        .gog(new GameInfoResponse(
-                                product.id(),
-                                //prices in steam presented as integer value
-                                priceMapper.gogPriceToPriceResponse(product.price()),
-                                baseUrl + product.link()
-                        ))
-                        .build()
-        );
+        gameList.put(product.name(), getGameResponseFromGogProduct(product));
         log.debug("A new product with name {} was successfully added into the List", product.name());
+    }
+
+    public GameResponse getGameResponseFromGogProduct(GogProduct product) {
+        return GameResponse.builder()
+                .name(product.name())
+                .image("https:" + product.image() + ".jpg")
+                .platforms(platformsMapper.gogPlatformsToPlatformsResponse(product.platforms()))
+                .gog(getGameInfoResponseFromGogProduct(product))
+                .build();
+    }
+
+    public GameInfoResponse getGameInfoResponseFromGogProduct(GogProduct product) {
+        return new GameInfoResponse(
+                product.id(),
+                getPriceResponseFromGogProduct(product),
+                baseUrl + product.link()
+        );
+    }
+
+    public PriceResponse getPriceResponseFromGogProduct(GogProduct product) {
+        return priceMapper.gogPriceToPriceResponse(product.price());
     }
 }

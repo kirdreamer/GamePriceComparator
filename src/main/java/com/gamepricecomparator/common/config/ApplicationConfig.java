@@ -17,8 +17,9 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 @ComponentScan(basePackages = "com.gamepricecomparator")
 @PropertySources({
-    @PropertySource("classpath:gog.properties"),
-    @PropertySource("classpath:steam.properties")
+        @PropertySource("classpath:gog.properties"),
+        @PropertySource("classpath:steam.properties"),
+        @PropertySource("classpath:email.properties")
 })
 public class ApplicationConfig {
 
