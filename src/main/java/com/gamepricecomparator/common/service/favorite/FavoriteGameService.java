@@ -1,7 +1,7 @@
 package com.gamepricecomparator.common.service.favorite;
 
 import com.gamepricecomparator.common.config.JwtService;
-import com.gamepricecomparator.common.dto.projection.FavoriteGameInfoDTO;
+import com.gamepricecomparator.common.dto.favorite.projection.FavoriteGameInfoDTO;
 import com.gamepricecomparator.common.entity.FavoriteGame;
 import com.gamepricecomparator.common.exception.FavoriteGameNotFoundException;
 import com.gamepricecomparator.common.exception.IncorrectTokenException;

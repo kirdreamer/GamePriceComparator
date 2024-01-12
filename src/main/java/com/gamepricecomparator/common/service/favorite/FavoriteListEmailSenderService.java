@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.service.favorite;
 
-import com.gamepricecomparator.common.dto.projection.FavoriteGameInfoDTO;
+import com.gamepricecomparator.common.dto.favorite.projection.FavoriteGameInfoDTO;
 import com.gamepricecomparator.common.service.game.GameService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
