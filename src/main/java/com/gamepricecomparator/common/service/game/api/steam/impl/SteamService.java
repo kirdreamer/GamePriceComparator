@@ -27,6 +27,8 @@ public class SteamService {
     private String gameUrl;
     @Value("${steam.game.page.url}")
     private String gamePageUrl;
+    @Value("${steam.search.dlc}")
+    private Boolean isSearchDlcEnabled;
 
     private final SteamGameMapper steamGameMapper;
     private final PlatformsMapper platformsMapper;
@@ -39,7 +41,8 @@ public class SteamService {
         for (SteamGame steamGame : steamGameRepository.findByNameIgnoreCaseContaining(name).orElseGet(ArrayList::new)) {
             SteamGameResponse gameResponse = getGameById(steamGame.getAppid());
             if (Objects.nonNull(gameResponse) &&
-                    (gameResponse.type().equals("game") || gameResponse.type().equals("dlc"))
+                    (gameResponse.type().equals("game") ||
+                            (gameResponse.type().equals("dlc") && isSearchDlcEnabled))
             )
                 steamGameResponses.add(gameResponse);
         }
@@ -69,7 +72,7 @@ public class SteamService {
 
         log.debug("Trying to add all products from SteamGameList into HashMap...");
         for (SteamGameResponse game : steamGameList) {
-            if (!game.type().isEmpty() && game.type().equals("game")) {
+            if (!game.type().isEmpty()) {
                 putSteamGameIntoMap(game, gameList);
             }
         }
