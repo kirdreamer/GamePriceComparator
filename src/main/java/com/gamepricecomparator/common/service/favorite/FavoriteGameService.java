@@ -78,14 +78,15 @@ public class FavoriteGameService {
     }
 
     public void deleteFavoriteGameByEmailAndName(String token, String name) {
-        favoriteGameRepository.deleteByEmailAndName(jwtService.extractUsername(token), name);
+        String user = jwtService.extractUsername(token);
+        log.debug("Trying to delete favorite game {} for user {}...", name, user);
+        favoriteGameRepository.deleteByEmailAndName(user, name);
+        log.debug("Deleting was successfully completed");
     }
 
-    public String[] getAllEmailsByGame(String gameName) {
+    public List<String> getAllEmailsByGame(String gameName) {
         log.debug("Trying to extract all email in favorite games by name {} from Database...", gameName);
-        String[] emails = favoriteGameRepository.findEmailsByName(gameName)
-                .orElse(new ArrayList<>())
-                .toArray(String[]::new);
+        List<String> emails = favoriteGameRepository.findEmailsByName(gameName).orElse(new ArrayList<>());
         log.debug("Extracting was successfully completed");
 
         return emails;

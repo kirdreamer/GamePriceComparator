@@ -1,4 +1,4 @@
-package com.gamepricecomparator.common.component;
+package com.gamepricecomparator.common.threadexecutor;
 
 import com.gamepricecomparator.common.service.game.api.steam.impl.SteamService;
 import lombok.RequiredArgsConstructor;

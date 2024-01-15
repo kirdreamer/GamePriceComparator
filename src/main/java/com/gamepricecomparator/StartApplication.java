@@ -1,6 +1,6 @@
 package com.gamepricecomparator;
 
-import com.gamepricecomparator.common.component.SteamRequestExecutor;
+import com.gamepricecomparator.common.threadexecutor.SteamRequestExecutor;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
@@ -19,11 +19,11 @@ public class StartApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void runSteamRequestExecutor() {
-        //steamRequestExecutor.start();
+        steamRequestExecutor.start();
     }
 
     @PreDestroy
     public void stopSteamRequestExecute() {
-        //steamRequestExecutor.interrupt();
+        steamRequestExecutor.interrupt();
     }
 }

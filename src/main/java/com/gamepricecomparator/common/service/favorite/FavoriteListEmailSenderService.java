@@ -29,8 +29,7 @@ public class FavoriteListEmailSenderService {
     @Value("${email.price.alarm.path}")
     private String emailPriceAlarmBodyPath;
 
-    public void sendEmail(String[] recipientEmails, String subject, String body) {
-        log.info("Trying to send message to {} emails with subject {}...", recipientEmails.length, subject);
+    public void sendEmail(String recipientEmails, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(emailSender);
         message.setTo(recipientEmails);
@@ -38,8 +37,6 @@ public class FavoriteListEmailSenderService {
         message.setSubject(subject);
 
         mailSender.send(message);
-
-        log.info("Email with subject {} was successfully sent", subject);
     }
 
     public void sendPriceAlarmEmail() {
@@ -47,23 +44,34 @@ public class FavoriteListEmailSenderService {
 
         for (FavoriteGameInfoDTO game : favoriteGames) {
             if (checkIfPriceLow()) {
-                log.info("Trying to send emails by game {}", game.name());
-                try {
-                    sendEmail(favoriteGameService.getAllEmailsByGame(game.name()),
-                            String.format("Price Alarm (%s)", game.name()),
-                            StreamUtils.copyToString(
-                                    new ClassPathResource(emailPriceAlarmBodyPath).getInputStream(),
-                                    Charset.defaultCharset()).replace("{name}", game.name())
-                    );
-                } catch (IOException e) {
-                    log.error("When sending a message and extracting the message body from the folder, " +
-                            "an error occurred caused by: {}", e.getMessage());
+                List<String> emails = favoriteGameService.getAllEmailsByGame(game.name());
+                log.info("Trying to send {} emails by game {}...", emails.size(), game.name());
+                for (String email : emails) {
+                    try {
+                        sendEmail(
+                                email,
+                                String.format("Price Alarm (%s)", game.name()),
+                                StreamUtils.copyToString(
+                                        new ClassPathResource(emailPriceAlarmBodyPath).getInputStream(),
+                                        Charset.defaultCharset()).replace("{name}", game.name())
+                        );
+                    } catch (IOException e) {
+                        log.error("When sending a message and extracting the message body from the folder, " +
+                                "an error occurred caused by: {}", e.getMessage());
+                    }
                 }
+                log.info("Email with game {} was successfully sent", game.name());
             }
         }
     }
 
     public boolean checkIfPriceLow() {
+        //gameService.getSpecifiedGame(...)
+        //check final and lowPrice
+        //return
         return true;
     }
+
+    //Mapper for Map<Platform, Integer> ids, String name
+    //ThreadExecutor
 }
