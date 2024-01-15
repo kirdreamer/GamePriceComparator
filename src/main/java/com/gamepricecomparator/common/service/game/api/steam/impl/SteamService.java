@@ -69,7 +69,9 @@ public class SteamService {
 
         log.debug("Trying to add all products from SteamGameList into HashMap...");
         for (SteamGameResponse game : steamGameList) {
-            putSteamGameIntoMap(game, gameList);
+            if (!game.type().isEmpty() && game.type().equals("game")) {
+                putSteamGameIntoMap(game, gameList);
+            }
         }
         log.debug("All products from SteamGameList were added into HashMap");
 

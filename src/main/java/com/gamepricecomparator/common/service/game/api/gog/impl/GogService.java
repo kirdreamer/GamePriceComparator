@@ -67,7 +67,7 @@ public class GogService {
         gameList.put(product.name(),
                 GameResponse.builder()
                         .name(product.name())
-                        .image(product.image()) //TODO Required rework
+                        .image("https:" + product.image() + ".jpg")
                         .platforms(platformsMapper.gogPlatformsToPlatformsResponse(product.platforms()))
                         .gog(new GameInfoResponse(
                                 product.id(),

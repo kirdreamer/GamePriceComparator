@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/game")
+@RequestMapping("/api/v1/games")
 @CrossOrigin
 @RequiredArgsConstructor
 @Slf4j
 public class GameController {
     private final GameService gameService;
 
-    @GetMapping("/get-game-list")
-    public ResponseEntity<List<GameResponse>> getGameList(@RequestParam("game") String nameGame) {
-        log.info("Received Request to get a list of games with name {}", nameGame);
-        return ResponseEntity.ok(gameService.getGamesByName(nameGame));
+    @GetMapping("/search")
+    public ResponseEntity<List<GameResponse>> getGameList(@RequestParam("name") String gameName) {
+        log.info("Received Request to search for game with name {}", gameName);
+        return ResponseEntity.ok(gameService.getGamesByName(gameName));
     }
 }
