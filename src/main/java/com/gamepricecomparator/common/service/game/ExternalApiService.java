@@ -2,9 +2,11 @@ package com.gamepricecomparator.common.service.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamepricecomparator.common.exception.HttpException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -28,6 +30,9 @@ public class ExternalApiService {
         } catch (JsonProcessingException e) {
             log.error("An error occurs during the mapping: {}", e.getMessage());
             throw new RuntimeException(e);
+        } catch (HttpClientErrorException e) {
+            log.error("An error occurred during the mapping: {}", e.getMessage());
+            throw new HttpException(e.getStatusCode().value(), e.getMessage());
         }
     }
 }
