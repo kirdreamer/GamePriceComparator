@@ -1,23 +1,18 @@
 package com.gamepricecomparator.common.service.favorite;
 
 import com.gamepricecomparator.common.config.JwtService;
-import com.gamepricecomparator.common.dto.favorite.projection.FavoriteGameInfoDTO;
+import com.gamepricecomparator.common.dto.GameDTO;
 import com.gamepricecomparator.common.entity.FavoriteGame;
-import com.gamepricecomparator.common.exception.FavoriteGameNotFoundException;
 import com.gamepricecomparator.common.exception.IncorrectTokenException;
 import com.gamepricecomparator.common.mapper.FavoriteGameMapper;
 import com.gamepricecomparator.common.repository.FavoriteGameRepository;
 import com.gamepricecomparator.common.web.request.FavoriteGameRequest;
-import com.gamepricecomparator.common.web.response.FavoriteGameResponse;
+import com.gamepricecomparator.common.web.response.game.GameResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -51,30 +46,21 @@ public class FavoriteGameService {
                 favoriteGame.getName(), favoriteGame.getEmail());
     }
 
-    public List<FavoriteGameResponse> getFavoriteListByEmail(String token) {
-        List<FavoriteGameResponse> favoriteGames = new ArrayList<>();
+    public Map<String, GameDTO> getFavoriteGamesByEmail(String token) {
+        Map<String, GameDTO> favoriteGameDTOS = new HashMap<>();
         Optional<List<FavoriteGame>> favoriteGameList = favoriteGameRepository.findByEmailIgnoreCase(
                 jwtService.extractUsername(token)
         );
 
-        if (favoriteGameList.isEmpty()) return favoriteGames;
+        if (favoriteGameList.isEmpty()) return favoriteGameDTOS;
 
         for (FavoriteGame game : favoriteGameList.get())
-            favoriteGames.add(favoriteGameMapper.favoriteGameToFavoriteGameResponse(game));
+            favoriteGameDTOS.put(game.getName(), favoriteGameMapper.favoriteGameToGameDTO(game));
 
-        log.debug("Was received {} games", favoriteGames.size());
 
-        return favoriteGames;
-    }
+        log.debug("Were received {} games", favoriteGameDTOS.size());
 
-    public FavoriteGameResponse getFavoriteGameByEmailAndName(String token, String name) {
-        Optional<FavoriteGame> favoriteGame = favoriteGameRepository.findByEmailAndNameIgnoreCase(
-                jwtService.extractUsername(token), name);
-
-        if (favoriteGame.isEmpty())
-            throw new FavoriteGameNotFoundException(HttpStatus.NOT_FOUND.value(), "Favorite game does not exist");
-
-        return favoriteGameMapper.favoriteGameToFavoriteGameResponse(favoriteGame.get());
+        return favoriteGameDTOS;
     }
 
     public void deleteFavoriteGameByEmailAndName(String token, String name) {
@@ -92,12 +78,31 @@ public class FavoriteGameService {
         return emails;
     }
 
-    public List<FavoriteGameInfoDTO> getAllFavoriteGames() {
+    public List<GameDTO> getAllFavoriteGames() {
         log.debug("Trying to extract all favorite games from Database...");
-        List<FavoriteGameInfoDTO> favoriteGameInfoDTOS = favoriteGameRepository.findAllFavoriteGames()
+        List<GameDTO> favoriteGameInfoDTOS = favoriteGameRepository.findAllFavoriteGames()
                 .orElse(new ArrayList<>());
         log.debug("Extracting was successfully completed");
 
         return favoriteGameInfoDTOS;
+    }
+
+    public void setAllFavoriteGamesInListAsFavoriteGame(List<GameResponse> games, String token) {
+        log.debug("Trying to set all Favorite games for current in Game list as favorite game...");
+
+        Map<String, GameDTO> favoriteGames = getFavoriteGamesByEmail(token);
+
+        if (favoriteGames.size() != 0)
+            for (GameResponse game : games)
+                if (favoriteGames.containsKey(game.getName()))
+                    game.setIsFavorite(true);
+
+        log.debug("All Favorite games were set as favorite game");
+    }
+
+    public void setAllGamesInListAsFavoriteGame(List<GameResponse> games) {
+        log.debug("Setting all games in list as favorite game...");
+        for (GameResponse game : games) game.setIsFavorite(true);
+        log.debug("All games were set as favorite game");
     }
 }

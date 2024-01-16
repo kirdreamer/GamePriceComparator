@@ -69,7 +69,6 @@ public class SteamService {
 
     public HashMap<String, GameResponse> prepareGameListFromSteam(List<SteamGameResponse> steamGameList) {
         HashMap<String, GameResponse> gameList = new HashMap<>();
-
         log.debug("Trying to add all products from SteamGameList into HashMap...");
         for (SteamGameResponse game : steamGameList) {
             if (!game.type().isEmpty()) {
@@ -97,6 +96,7 @@ public class SteamService {
                 .short_description(game.short_description())
                 .detailed_description(game.detailed_description())
                 .steam(getGameInfoResponseFromSteamGameResponse(game))
+                .isFavorite(false)
                 .build();
     }
 

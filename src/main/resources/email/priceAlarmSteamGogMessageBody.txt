@@ -1,0 +1,10 @@
+Dear user,
+
+We would like to inform you that the game with the name '{name}' is currently being sold at a discount at Steam and GOG.
+
+Price in Steam: {price}
+Price in GOG: {price}
+
+Links to platforms:
+Steam: {link}
+GOG: {link}

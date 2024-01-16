@@ -14,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -35,17 +33,18 @@ public class GogService {
     private String baseUrl;
 
     public GogProduct getGameById(Integer gogId, String name) {
-        return getGamesByName(name).stream()
+        List<GogProduct> list = getGamesByName(name);
+        return list.stream()
                 .filter(gogProduct -> Objects.equals(gogProduct.id(), gogId))
                 .findFirst()
                 .orElse(null);
     }
 
     public List<GogProduct> getGamesByName(String name) {
-        String parameters = String.format("?search=%s", URLEncoder.encode(name, StandardCharsets.UTF_8));
+        String parameters = String.format("?search=%s", name);
         String finalUrl = String.format("%s%s", baseUrl + productsUrl, parameters);
         return externalApiService.makeGetRequest(finalUrl, GogResponse.class).products().stream()
-                .filter(product -> Arrays.stream(Strings.delimitedListToStringArray(name, " "))
+                .filter(product -> Arrays.stream(Strings.delimitedListToStringArray(name.toLowerCase(), " "))
                         .allMatch(product.name().toLowerCase()::contains))
                 .toList();
     }
@@ -78,6 +77,7 @@ public class GogService {
                 .image("https:" + product.image() + ".jpg")
                 .platforms(platformsMapper.gogPlatformsToPlatformsResponse(product.platforms()))
                 .gog(getGameInfoResponseFromGogProduct(product))
+                .isFavorite(false)
                 .build();
     }
 
