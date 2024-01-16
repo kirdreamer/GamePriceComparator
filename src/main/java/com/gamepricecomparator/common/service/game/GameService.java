@@ -1,5 +1,6 @@
 package com.gamepricecomparator.common.service.game;
 
+import com.gamepricecomparator.common.dto.GameDTO;
 import com.gamepricecomparator.common.dto.api.response.GogProduct;
 import com.gamepricecomparator.common.dto.api.response.SteamGameResponse;
 import com.gamepricecomparator.common.service.game.api.gog.impl.GogService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -33,4 +35,33 @@ public class GameService {
 
         return new ArrayList<>(gameList.values());
     }
+
+    public GameResponse getSpecificGameByIdAndName(GameDTO gameDTO) {
+        GameResponse gameResponse = null;
+
+        if (Objects.nonNull(gameDTO.steamId())) {
+            gameResponse = steamService.getGameResponseFromSteamGameResponse(
+                    steamService.getGameById(gameDTO.steamId()));
+            if (Objects.nonNull(gameDTO.gogId())) {
+                gameResponse.setGog(gogService.getGameInfoResponseFromGogProduct(
+                        gogService.getGameById(gameDTO.gogId(), gameDTO.name())));
+            }
+        } else if (Objects.nonNull(gameDTO.gogId())) {
+            gameResponse = gogService.getGameResponseFromGogProduct(
+                    gogService.getGameById(gameDTO.gogId(), gameDTO.name()));
+        }
+
+        return gameResponse;
+    }
+
+    public List<GameResponse> getSpecificGamesListFromList(List<GameDTO> games) {
+        List<GameResponse> specificGames = new ArrayList<>();
+
+        for (GameDTO game : games) {
+            specificGames.add(getSpecificGameByIdAndName(game));
+        }
+
+        return specificGames;
+    }
+
 }

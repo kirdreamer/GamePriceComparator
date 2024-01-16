@@ -1,8 +1,10 @@
 package com.gamepricecomparator.common.web.controller;
 
-import com.gamepricecomparator.common.service.FavoriteGameService;
+import com.gamepricecomparator.common.service.favorite.FavoriteGameService;
+import com.gamepricecomparator.common.service.favorite.FavoriteListEmailSenderService;
+import com.gamepricecomparator.common.service.game.GameService;
 import com.gamepricecomparator.common.web.request.FavoriteGameRequest;
-import com.gamepricecomparator.common.web.response.FavoriteGameResponse;
+import com.gamepricecomparator.common.web.response.game.GameResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,8 @@ import java.util.List;
 @Slf4j
 public class FavoriteController {
     private final FavoriteGameService favoriteGameService;
+    private final GameService gameService;
+    private final FavoriteListEmailSenderService favoriteListEmailSenderService;
 
     @PostMapping("/add")
     public ResponseEntity<Void> addFavoriteGameToUser(
@@ -31,20 +35,17 @@ public class FavoriteController {
     }
 
     @GetMapping("/get-list")
-    public ResponseEntity<List<FavoriteGameResponse>> getFavoriteListByEmail(
+    public ResponseEntity<List<GameResponse>> getFavoriteListByEmail(
             @RequestHeader(HttpHeaders.AUTHORIZATION) String token
     ) {
         log.info("Received Request to get the list of Favorite Games");
-        return ResponseEntity.ok(favoriteGameService.getFavoriteListByEmail(token));
-    }
+        List<GameResponse> games =
+                gameService.getSpecificGamesListFromList(
+                        favoriteGameService.getFavoriteGamesByEmail(token).values().stream().toList());
 
-    @GetMapping("/get-game")
-    public ResponseEntity<FavoriteGameResponse> getFavoriteGameByEmailAndName(
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String token,
-            @RequestParam("name") String name
-    ) {
-        log.info("Received Request to get the favorite game {}", name);
-        return ResponseEntity.ok(favoriteGameService.getFavoriteGameByEmailAndName(token, name));
+        favoriteGameService.setAllGamesInListAsFavoriteGame(games);
+
+        return ResponseEntity.ok(games);
     }
 
     @DeleteMapping("/delete-game")
@@ -55,5 +56,13 @@ public class FavoriteController {
         log.info("Received Request to delete the favorite game {}", name);
         favoriteGameService.deleteFavoriteGameByEmailAndName(token, name);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+
+    @GetMapping("/send-price-alarm-emails")
+    public ResponseEntity<Void> sendPriceAlarmEmails() {
+        log.info("Received Request to send price alarm emails if there are any sales of Favorite Games");
+        favoriteListEmailSenderService.sendPriceAlarmEmail();
+        return ResponseEntity.ok().build();
     }
 }
