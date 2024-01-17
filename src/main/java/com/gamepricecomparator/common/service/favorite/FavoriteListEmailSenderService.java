@@ -1,5 +1,7 @@
 package com.gamepricecomparator.common.service.favorite;
 
+import com.gamepricecomparator.common.entity.user.User;
+import com.gamepricecomparator.common.repository.UserRepository;
 import com.gamepricecomparator.common.service.game.GameService;
 import com.gamepricecomparator.common.web.response.game.GameInfoResponse;
 import com.gamepricecomparator.common.web.response.game.GameResponse;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ public class FavoriteListEmailSenderService {
     private final JavaMailSender mailSender;
     private final FavoriteGameService favoriteGameService;
     private final GameService gameService;
+    private final UserRepository userRepository;
 
     @Value("${spring.mail.username}")
     private String emailSender;
@@ -82,15 +86,16 @@ public class FavoriteListEmailSenderService {
         String messageBody = "";
         try {
             messageBody = StreamUtils.copyToString(
-                    new ClassPathResource(emailBodyPath).getInputStream(),
-                    Charset.defaultCharset()).replace("{name}", gameName);
+                            new ClassPathResource(emailBodyPath).getInputStream(),
+                            Charset.defaultCharset())
+                    .replace("{name}", gameName);
 
             for (GameInfoResponse gameInfo : gameInfos) {
                 messageBody = messageBody
-                        .replace("{price}",
+                        .replaceFirst("\\{price}",
                                 gameInfo.price().final_value().toString() +
                                         " " + gameInfo.price().currency())
-                        .replace("{link}", gameInfo.link());
+                        .replaceFirst("\\{link}", gameInfo.link());
             }
         } catch (IOException e) {
             log.error("When sending a message and extracting the message body from the folder, " +
@@ -99,7 +104,14 @@ public class FavoriteListEmailSenderService {
 
         log.info("Trying to send {} emails by game {}...", emails.size(), gameName);
         for (String email : emails) {
-            sendEmail(email, String.format("Price Alarm (%s)", gameName), messageBody);
+            String userName = "user";
+            Optional<User> user = userRepository.findByEmail(email);
+
+            if (user.isPresent())
+                userName = user.get().getNickname();
+
+            sendEmail(email, String.format("Price Alarm (%s)", gameName),
+                    messageBody.replace("{user}", userName));
         }
         log.info("Emails with game {} were successfully sent", gameName);
     }
