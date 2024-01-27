@@ -83,7 +83,7 @@ public class GogService {
 
     public GameInfoResponse getGameInfoResponseFromGogProduct(GogProduct product) {
         return new GameInfoResponse(
-                product.id(),
+                product.id().toString(),
                 getPriceResponseFromGogProduct(product),
                 baseUrl + product.link()
         );

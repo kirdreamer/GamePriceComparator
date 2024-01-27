@@ -102,7 +102,7 @@ public class SteamService {
 
     public GameInfoResponse getGameInfoResponseFromSteamGameResponse(SteamGameResponse game) {
         return new GameInfoResponse(
-                game.id(),
+                game.id().toString(),
                 getPriceResponseFromSteamGameResponse(game),
                 gamePageUrl + game.id()
         );

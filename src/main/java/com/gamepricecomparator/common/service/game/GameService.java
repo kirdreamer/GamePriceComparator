@@ -1,7 +1,7 @@
 package com.gamepricecomparator.common.service.game;
 
 import com.gamepricecomparator.common.dto.GameDTO;
-import com.gamepricecomparator.common.dto.api.response.EgsResponse;
+import com.gamepricecomparator.common.dto.api.response.EgsProduct;
 import com.gamepricecomparator.common.dto.api.response.GogProduct;
 import com.gamepricecomparator.common.dto.api.response.SteamGameResponse;
 import com.gamepricecomparator.common.service.game.api.egs.impl.EgsService;
@@ -26,7 +26,7 @@ public class GameService {
     private final GogService gogService;
 
     public List<GameResponse> getGamesByName(String name) {
-        List<EgsResponse> egsGames = egsService.getGamesByName(name);
+        List<EgsProduct> egsGames = egsService.getGamesByName(name).elements();
         log.info("Received {} products from Epic Games Store", egsGames.size());
 
         List<GogProduct> gogGames = gogService.getGamesByName(name);
@@ -37,6 +37,7 @@ public class GameService {
 
         Map<String, GameResponse> gameList = steamService.prepareGameListFromSteam(steamGames);
         gogService.addGogGameIntoGameList(gogGames, gameList);
+        egsService.addEgsGameIntoGameList(egsGames, gameList);
         log.info("Map gameList contains {} products", gameList.size());
 
         return new ArrayList<>(gameList.values());
