@@ -21,6 +21,7 @@ public class FavoriteGame {
     private Long id;
     private Integer steamId;
     private Integer gogId;
+    private String egsId;
     private String name;
     private String email;
 }

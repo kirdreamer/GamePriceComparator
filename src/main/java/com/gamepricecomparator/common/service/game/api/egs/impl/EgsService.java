@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,14 @@ public class EgsService {
     @Value("${egs.graphql.url}")
     private String graphqlUrl;
 
-    @SuppressWarnings("unchecked")
+    public EgsProduct getGameById(String egsId, String name) {
+        EgsResponse list = getGamesByName(name);
+        return list.elements().stream()
+                .filter(egsProduct -> Objects.equals(egsProduct.id(), egsId))
+                .findFirst()
+                .orElse(null);
+    }
+
     public EgsResponse getGamesByName(String name) {
         //TODO Fast solution. Needs to be reworked
         String query = String.format("{\"query\": \"{" +

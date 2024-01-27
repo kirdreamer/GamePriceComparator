@@ -19,11 +19,11 @@ public class StartApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     public void runSteamRequestExecutor() {
-//        steamRequestExecutor.start();
+        steamRequestExecutor.start();
     }
 
     @PreDestroy
     public void stopSteamRequestExecute() {
-//        steamRequestExecutor.interrupt();
+        steamRequestExecutor.interrupt();
     }
 }
