@@ -24,8 +24,8 @@ public interface FavoriteGameRepository extends JpaRepository<FavoriteGame, Long
     void deleteByEmailAndName(@Param("email") String email, @Param("name") String name);
 
     @Query("SELECT DISTINCT " +
-            "new com.gamepricecomparator.common.dto.GameDTO(f.name, f.steamId, f.gogId)" +
-            " FROM FavoriteGame f GROUP BY f.name, f.steamId, f.gogId")
+            "new com.gamepricecomparator.common.dto.GameDTO(f.name, f.steamId, f.gogId, f.egsId)" +
+            " FROM FavoriteGame f GROUP BY f.name, f.steamId, f.gogId, f.egsId")
     Optional<List<GameDTO>> findAllFavoriteGames();
 
     @Query("SELECT DISTINCT f.email FROM FavoriteGame f WHERE f.name=:name")

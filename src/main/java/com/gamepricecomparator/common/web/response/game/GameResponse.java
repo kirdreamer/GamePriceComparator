@@ -9,9 +9,12 @@ import lombok.*;
 public class GameResponse {
     private String name;
     private String type;
+    //TODO make GameInfoResponse as list
     private GameInfoResponse steam;
     @Setter
     private GameInfoResponse gog;
+    @Setter
+    private GameInfoResponse egs;
     private String image;
     private PlatformsResponse platforms;
     private String short_description;

@@ -31,6 +31,7 @@ public class FavoriteGameService {
                 .name(favoriteGameRequest.name())
                 .steamId(favoriteGameRequest.steamId())
                 .gogId(favoriteGameRequest.gogId())
+                .egsId(favoriteGameRequest.egsId())
                 .build();
 
         if (favoriteGameRepository.findByEmailAndNameIgnoreCase(

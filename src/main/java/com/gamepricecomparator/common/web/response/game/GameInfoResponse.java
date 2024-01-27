@@ -1,7 +1,7 @@
 package com.gamepricecomparator.common.web.response.game;
 
 public record GameInfoResponse(
-        Integer id,
+        String id,
         PriceResponse price,
         String link
 ) {

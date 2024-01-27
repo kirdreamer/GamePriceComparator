@@ -2,5 +2,6 @@ package com.gamepricecomparator.common.constant;
 
 public enum Platfrom {
     STEAM,
-    GOG
+    GOG,
+    EPIC_GAMES_STORE
 }
