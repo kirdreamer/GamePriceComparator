@@ -1,7 +1,0 @@
-Dear {user},
-
-We would like to inform you that the game with the name '{name}' is currently being sold at a discount at GOG.
-
-Price: {price}
-
-Link to the platform: {link}
