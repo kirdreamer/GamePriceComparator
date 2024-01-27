@@ -73,7 +73,7 @@ public class FavoriteListEmailSenderService {
                 .replaceFirst("\\{link}", gameInfo.getValue().link() + "\nLink to the platform {platform}: {link}");
     }
 
-    private String clearRedudantPartsOfMessageBody(String messageBody) {
+    private String clearRedundantPartsOfMessageBody(String messageBody) {
         return messageBody
                 .replaceFirst(", \\{platform}", "")
                 .replaceFirst("Price at \\{platform}: \\{price}","")
@@ -95,7 +95,7 @@ public class FavoriteListEmailSenderService {
             for (Map.Entry<Platfrom, GameInfoResponse> gameInfo : gameInfos.entrySet()) {
                 messageBody = prepareMessageBody(messageBody, gameInfo);
             }
-            messageBody = clearRedudantPartsOfMessageBody(messageBody);
+            messageBody = clearRedundantPartsOfMessageBody(messageBody);
         } catch (IOException e) {
             log.error("When sending a message and extracting the message body from the folder, " +
                     "an error occurred caused by: {}", e.getMessage());
