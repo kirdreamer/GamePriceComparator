@@ -55,7 +55,7 @@ public class AuthenticationController {
         String token = authHeader.substring(7);
 
         return ResponseEntity.ok(
-                new IsLoggedInResponse(user.getEmail(), user.getNickname(), authenticationService.isLoggedIn(token, user))
+                new IsLoggedInResponse(user.getEmail(), user.getNickname(), token, authenticationService.isLoggedIn(token, user))
         );
     }
 }
