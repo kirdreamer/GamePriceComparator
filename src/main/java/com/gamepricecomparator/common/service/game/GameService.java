@@ -46,31 +46,26 @@ public class GameService {
     public GameResponse getSpecificGameByIdAndName(GameDTO gameDTO) {
         GameResponse gameResponse = null;
 
-        //TODO Rework
         if (Objects.nonNull(gameDTO.steamId())) {
             gameResponse = steamService.getGameResponseFromSteamGameResponse(
                     steamService.getGameById(gameDTO.steamId()));
-            if (Objects.nonNull(gameDTO.gogId())) {
-                gameResponse.setGog(gogService.getGameInfoResponseFromGogProduct(
-                        gogService.getGameById(gameDTO.gogId(), gameDTO.name())));
-            }
-            if (Objects.nonNull(gameDTO.egsId())) {
-                gameResponse.setEgs(egsService.getGameInfoResponseFromEgsResponse(
-                        egsService.getGameById(gameDTO.egsId(), gameDTO.name())
-                ));
-            }
-        } else if (Objects.nonNull(gameDTO.gogId())) {
-            gameResponse = gogService.getGameResponseFromGogProduct(
-                    gogService.getGameById(gameDTO.gogId(), gameDTO.name()));
-            if (Objects.nonNull(gameDTO.egsId())) {
-                gameResponse.setEgs(egsService.getGameInfoResponseFromEgsResponse(
-                        egsService.getGameById(gameDTO.egsId(), gameDTO.name())
-                ));
-            }
         }
-        else if (Objects.nonNull(gameDTO.egsId())) {
-            gameResponse = egsService.getGameResponseFromEgsResponse(
-                    egsService.getGameById(gameDTO.egsId(), gameDTO.name()));
+        if (Objects.nonNull(gameDTO.gogId())) {
+            if (Objects.isNull(gameResponse)) {
+                gameResponse = gogService.getGameResponseFromGogProduct(
+                        gogService.getGameById(gameDTO.gogId(), gameDTO.name()));
+            } else
+                gameResponse.game_providers.add(gogService.getGameInfoResponseFromGogProduct(
+                        gogService.getGameById(gameDTO.gogId(), gameDTO.name())));
+        }
+        if (Objects.nonNull(gameDTO.egsId())) {
+            if (Objects.isNull(gameResponse)) {
+                gameResponse = egsService.getGameResponseFromEgsResponse(
+                        egsService.getGameById(gameDTO.egsId(), gameDTO.name()));
+            } else
+                gameResponse.game_providers.add(egsService.getGameInfoResponseFromEgsResponse(
+                        egsService.getGameById(gameDTO.egsId(), gameDTO.name())
+                ));
         }
 
         return gameResponse;
@@ -85,5 +80,4 @@ public class GameService {
 
         return specificGames;
     }
-
 }

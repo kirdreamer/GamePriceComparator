@@ -96,14 +96,14 @@ public class FavoriteGameService {
         if (favoriteGames.size() != 0)
             for (GameResponse game : games)
                 if (favoriteGames.containsKey(game.getName()))
-                    game.setIsFavorite(true);
+                    game.setIs_favorite(true);
 
         log.debug("All Favorite games were set as favorite game");
     }
 
     public void setAllGamesInListAsFavoriteGame(List<GameResponse> games) {
         log.debug("Setting all games in list as favorite game...");
-        for (GameResponse game : games) game.setIsFavorite(true);
+        for (GameResponse game : games) game.setIs_favorite(true);
         log.debug("All games were set as favorite game");
     }
 }

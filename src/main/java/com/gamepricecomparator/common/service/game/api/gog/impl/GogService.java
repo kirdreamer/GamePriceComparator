@@ -1,11 +1,12 @@
 package com.gamepricecomparator.common.service.game.api.gog.impl;
 
+import com.gamepricecomparator.common.constant.Platfrom;
 import com.gamepricecomparator.common.dto.api.response.GogProduct;
 import com.gamepricecomparator.common.dto.api.response.GogResponse;
 import com.gamepricecomparator.common.mapper.PlatformsMapper;
 import com.gamepricecomparator.common.mapper.PriceMapper;
 import com.gamepricecomparator.common.service.game.ExternalApiService;
-import com.gamepricecomparator.common.web.response.game.GameInfoResponse;
+import com.gamepricecomparator.common.web.response.game.GameProviderResponse;
 import com.gamepricecomparator.common.web.response.game.GameResponse;
 import com.gamepricecomparator.common.web.response.game.PriceResponse;
 import io.jsonwebtoken.lang.Strings;
@@ -14,10 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+
+import static com.gamepricecomparator.common.service.UtilService.filterSymbolsInName;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +33,7 @@ public class GogService {
     private String baseUrl;
 
     public GogProduct getGameById(Integer gogId, String name) {
-        List<GogProduct> list = getGamesByName(name);
+        List<GogProduct> list = getGamesByName(filterSymbolsInName(name));
         return list.stream()
                 .filter(gogProduct -> Objects.equals(gogProduct.id(), gogId))
                 .findFirst()
@@ -51,7 +51,7 @@ public class GogService {
 
     public void addGogGameIntoGameList(List<GogProduct> gogGameList, Map<String, GameResponse> gameList) {
         for (GogProduct product : gogGameList) {
-            if (gameList.containsKey(product.name())) {
+            if (gameList.containsKey(filterSymbolsInName(product.name()))) {
                 setGogProductIntoMap(product, gameList);
                 continue;
             }
@@ -61,28 +61,31 @@ public class GogService {
 
     private void setGogProductIntoMap(GogProduct product, Map<String, GameResponse> gameList) {
         log.debug("Trying to put the product with name {} into the List...", product.name());
-        gameList.get(product.name()).setGog(getGameInfoResponseFromGogProduct(product));
+        gameList.get(filterSymbolsInName(product.name())).game_providers.add(getGameInfoResponseFromGogProduct(product));
         log.debug("Product with name {} was successfully put into the List", product.name());
     }
 
     private void putGogGameIntoMap(GogProduct product, Map<String, GameResponse> gameList) {
         log.debug("Trying to add a new product with name {} into the List...", product.name());
-        gameList.put(product.name(), getGameResponseFromGogProduct(product));
+        gameList.put(filterSymbolsInName(product.name()), getGameResponseFromGogProduct(product));
         log.debug("A new product with name {} was successfully added into the List", product.name());
     }
 
     public GameResponse getGameResponseFromGogProduct(GogProduct product) {
-        return GameResponse.builder()
+        GameResponse gameResponse = GameResponse.builder()
                 .name(product.name())
                 .image("https:" + product.image() + ".jpg")
                 .platforms(platformsMapper.gogPlatformsToPlatformsResponse(product.platforms()))
-                .gog(getGameInfoResponseFromGogProduct(product))
-                .isFavorite(false)
+                .game_providers(new ArrayList<>())
+                .is_favorite(false)
                 .build();
+        gameResponse.game_providers.add(getGameInfoResponseFromGogProduct(product));
+        return gameResponse;
     }
 
-    public GameInfoResponse getGameInfoResponseFromGogProduct(GogProduct product) {
-        return new GameInfoResponse(
+    public GameProviderResponse getGameInfoResponseFromGogProduct(GogProduct product) {
+        return new GameProviderResponse(
+                Platfrom.GOG,
                 product.id().toString(),
                 getPriceResponseFromGogProduct(product),
                 baseUrl + product.link()
