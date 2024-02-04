@@ -4,7 +4,7 @@ import com.gamepricecomparator.common.constant.Platfrom;
 import com.gamepricecomparator.common.entity.user.User;
 import com.gamepricecomparator.common.repository.UserRepository;
 import com.gamepricecomparator.common.service.game.GameService;
-import com.gamepricecomparator.common.web.response.game.GameInfoResponse;
+import com.gamepricecomparator.common.web.response.game.GameProviderResponse;
 import com.gamepricecomparator.common.web.response.game.GameResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,22 +47,21 @@ public class FavoriteListEmailSenderService {
     public void sendPriceAlarmEmail() {
         for (GameResponse game :
                 gameService.getSpecificGamesListFromList(favoriteGameService.getAllFavoriteGames())) {
-            Map<Platfrom, GameInfoResponse> gameInfos = new HashMap<>();
+            Map<Platfrom, GameProviderResponse> gameInfos = new HashMap<>();
 
             if (checkIfPriceLow(game)) {
                 List<String> emails = favoriteGameService.getAllEmailsByGame(game.getName());
-                if (Objects.nonNull(game.getSteam()) && checkIfPriceLowBySteam(game))
-                    gameInfos.put(Platfrom.STEAM, game.getSteam());
-                if (Objects.nonNull(game.getGog()) && checkIfPriceLowByGog(game))
-                    gameInfos.put(Platfrom.GOG, game.getGog());
-                if (Objects.nonNull(game.getEgs()) && checkIfPriceLowByEgs(game))
-                    gameInfos.put(Platfrom.EPIC_GAMES_STORE, game.getEgs());
+                for (var gameProvider : game.game_providers) {
+                    if (checkIfPriceLowBy(gameProvider.name(), game))
+                        gameInfos.put(gameProvider.name(), gameProvider);
+                }
+
                 sendPriceAlarmEmailsWithBodyFromPath(emails, emailPriceAlarmBodyPath, gameInfos, game.getName());
             }
         }
     }
 
-    private String prepareMessageBody(String messageBody, Map.Entry<Platfrom, GameInfoResponse> gameInfo) {
+    private String prepareMessageBody(String messageBody, Map.Entry<Platfrom, GameProviderResponse> gameInfo) {
         return messageBody
                 .replaceFirst("\\{platform}", gameInfo.getKey().toString() + ", {platform}")
                 .replaceFirst("Price at \\{platform}", "Price at " + gameInfo.getKey().toString())
@@ -76,14 +75,14 @@ public class FavoriteListEmailSenderService {
     private String clearRedundantPartsOfMessageBody(String messageBody) {
         return messageBody
                 .replaceFirst(", \\{platform}", "")
-                .replaceFirst("Price at \\{platform}: \\{price}","")
+                .replaceFirst("Price at \\{platform}: \\{price}", "")
                 .replaceFirst("Link to the platform \\{platform}: \\{link}", "");
     }
 
     private void sendPriceAlarmEmailsWithBodyFromPath(
             List<String> emails,
             String emailBodyPath,
-            Map<Platfrom, GameInfoResponse> gameInfos,
+            Map<Platfrom, GameProviderResponse> gameInfos,
             String gameName) {
         String messageBody = "";
         try {
@@ -92,7 +91,7 @@ public class FavoriteListEmailSenderService {
                             Charset.defaultCharset())
                     .replace("{name}", gameName);
 
-            for (Map.Entry<Platfrom, GameInfoResponse> gameInfo : gameInfos.entrySet()) {
+            for (Map.Entry<Platfrom, GameProviderResponse> gameInfo : gameInfos.entrySet()) {
                 messageBody = prepareMessageBody(messageBody, gameInfo);
             }
             messageBody = clearRedundantPartsOfMessageBody(messageBody);
@@ -116,24 +115,19 @@ public class FavoriteListEmailSenderService {
     }
 
     public boolean checkIfPriceLow(GameResponse game) {
-        return checkIfPriceLowBySteam(game) || checkIfPriceLowByGog(game) || checkIfPriceLowByEgs(game);
-    }
-
-    public boolean checkIfPriceLowBySteam(GameResponse game) {
-        if (Objects.nonNull(game.getSteam()))
-            return Double.compare(game.getSteam().price().final_value(), game.getSteam().price().initial_value()) < 0;
+        for (var gameProvider : game.game_providers) {
+            if (checkIfPriceLowBy(gameProvider.name(), game))
+                return true;
+        }
         return false;
     }
 
-    public boolean checkIfPriceLowByGog(GameResponse game) {
-        if (Objects.nonNull(game.getGog()))
-            return Double.compare(game.getGog().price().final_value(), game.getGog().price().initial_value()) < 0;
-        return false;
-    }
-
-    public boolean checkIfPriceLowByEgs(GameResponse game) {
-        if (Objects.nonNull(game.getEgs()))
-            return Double.compare(game.getEgs().price().final_value(), game.getEgs().price().initial_value()) < 0;
+    public boolean checkIfPriceLowBy(Platfrom platfrom, GameResponse game) {
+        GameProviderResponse gameProviderResponse = game.game_providers.stream()
+                .filter(gameProvider -> gameProvider.name().equals(platfrom))
+                .findFirst().orElse(null);
+        if (Objects.nonNull(gameProviderResponse))
+            return Double.compare(gameProviderResponse.price().final_value(), gameProviderResponse.price().initial_value()) < 0;
         return false;
     }
 

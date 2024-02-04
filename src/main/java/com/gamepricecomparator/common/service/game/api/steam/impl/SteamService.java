@@ -1,5 +1,6 @@
 package com.gamepricecomparator.common.service.game.api.steam.impl;
 
+import com.gamepricecomparator.common.constant.Platfrom;
 import com.gamepricecomparator.common.dto.api.response.SteamAllGamesResponse;
 import com.gamepricecomparator.common.dto.api.response.SteamGameResponse;
 import com.gamepricecomparator.common.entity.steam.SteamGame;
@@ -7,7 +8,7 @@ import com.gamepricecomparator.common.mapper.PlatformsMapper;
 import com.gamepricecomparator.common.mapper.SteamGameMapper;
 import com.gamepricecomparator.common.repository.SteamGameRepository;
 import com.gamepricecomparator.common.service.game.ExternalApiService;
-import com.gamepricecomparator.common.web.response.game.GameInfoResponse;
+import com.gamepricecomparator.common.web.response.game.GameProviderResponse;
 import com.gamepricecomparator.common.web.response.game.GameResponse;
 import com.gamepricecomparator.common.web.response.game.PriceResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
+import static com.gamepricecomparator.common.service.UtilService.filterSymbolsInName;
+import static com.gamepricecomparator.common.service.UtilService.keepTwoDigitAfterDecimal;
 
 @Service
 @RequiredArgsConstructor
@@ -87,21 +94,24 @@ public class SteamService {
     }
 
     public GameResponse getGameResponseFromSteamGameResponse(SteamGameResponse game) {
-        return GameResponse.builder()
-                .name(filterSymbolsInName(game.name()))
+        GameResponse gameResponse = GameResponse.builder()
+                .name(game.name())
                 .type(game.type())
                 .image(game.image())
                 .platforms(platformsMapper.steamPlatformsToPlatformsResponse(game.platforms()))
                 .about_the_game(game.about_the_game())
                 .short_description(game.short_description())
                 .detailed_description(game.detailed_description())
-                .steam(getGameInfoResponseFromSteamGameResponse(game))
-                .isFavorite(false)
+                .game_providers(new ArrayList<>())
+                .is_favorite(false)
                 .build();
+        gameResponse.game_providers.add(getGameInfoResponseFromSteamGameResponse(game));
+        return gameResponse;
     }
 
-    public GameInfoResponse getGameInfoResponseFromSteamGameResponse(SteamGameResponse game) {
-        return new GameInfoResponse(
+    public GameProviderResponse getGameInfoResponseFromSteamGameResponse(SteamGameResponse game) {
+        return new GameProviderResponse(
+                Platfrom.STEAM,
                 game.id().toString(),
                 getPriceResponseFromSteamGameResponse(game),
                 gamePageUrl + game.id()
@@ -128,13 +138,5 @@ public class SteamService {
                     true);
         }
         return priceResponse;
-    }
-
-    private String filterSymbolsInName(String name) {
-        return name.replaceAll("®", "");
-    }
-
-    private Double keepTwoDigitAfterDecimal(double value) {
-        return Double.valueOf(String.format(Locale.US, "%.2f", value));
     }
 }
