@@ -36,6 +36,13 @@ public class EgsService {
                 .orElse(null);
     }
 
+    public List<EgsProduct> filterGamesInEgsList(List<EgsProduct> productList) {
+        return productList.stream()
+                .filter(egsProduct -> Objects.nonNull(egsProduct.link()) ||
+                        (Objects.nonNull(egsProduct.offerMappings()) && egsProduct.offerMappings().size() > 0))
+                .toList();
+    }
+
     public EgsResponse getGamesByName(String name) {
         String query = new GraphqlEgsBuilder().setKeywords(name).build();
 
@@ -82,11 +89,12 @@ public class EgsService {
     }
 
     public GameProviderResponse getGameInfoResponseFromEgsResponse(EgsProduct product) {
+        String link = Objects.nonNull(product.link()) ? product.link() : product.offerMappings().get(0).pageSlug();
         return new GameProviderResponse(
                 Platfrom.EPIC_GAMES_STORE,
                 product.id(),
                 getPriceResponseFromEgsResponse(product.price().totalPrice()),
-                baseUrl + "/p/" + product.link().replace("-releaseoffer", "")
+                baseUrl + "/p/" + link
         );
     }
 

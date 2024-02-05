@@ -26,7 +26,7 @@ public class GameService {
     private final GogService gogService;
 
     public List<GameResponse> getGamesByName(String name) {
-        List<EgsProduct> egsGames = egsService.getGamesByName(name).elements();
+        List<EgsProduct> egsGames = egsService.filterGamesInEgsList(egsService.getGamesByName(name).elements());
         log.info("Received {} products from Epic Games Store", egsGames.size());
 
         List<GogProduct> gogGames = gogService.getGamesByName(name);

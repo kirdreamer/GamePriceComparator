@@ -10,12 +10,16 @@ public record EgsProduct(
         List<Url> images,
         @JsonProperty("title")
         String name,
-        @JsonProperty("urlSlug")
+        @JsonProperty("productSlug")
         String link,
+        List<OfferMapping> offerMappings,
         @JsonProperty("description")
         String short_description,
         Price price
 ) {
+    public record OfferMapping(
+            String pageSlug
+    ){}
     public record Url(String url) {
     }
 

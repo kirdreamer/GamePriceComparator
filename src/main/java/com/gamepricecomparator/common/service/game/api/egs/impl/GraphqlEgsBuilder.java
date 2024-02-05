@@ -34,7 +34,7 @@ public class GraphqlEgsBuilder {
         return String.format("{\"query\": \"{" +
                 "Catalog {searchStore(keywords: \\\"%s\\\", start: %d, count: %d) {" +
                 "paging {count total} elements {" +
-                "id keyImages{url} title urlSlug description price (country: \\\"%s\\\"){" +
+                "id keyImages{url} title productSlug offerMappings { pageSlug } description price (country: \\\"%s\\\"){" +
                 "totalPrice {originalPrice discountPrice currencyCode}}}}}}\"}",
                 keywords, start, count, country);
     }
