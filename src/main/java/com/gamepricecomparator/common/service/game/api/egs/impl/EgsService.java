@@ -22,7 +22,6 @@ import static com.gamepricecomparator.common.service.UtilService.keepTwoDigitAft
 @Slf4j
 public class EgsService {
     private final ExternalApiService externalApiService;
-    private final GraphqlGenerator graphqlGenerator;
 
     @Value("${egs.base.url}")
     private String baseUrl;
@@ -38,12 +37,7 @@ public class EgsService {
     }
 
     public EgsResponse getGamesByName(String name) {
-        //TODO Fast solution. Needs to be reworked
-        String query = String.format("{\"query\": \"{" +
-                "Catalog {searchStore(keywords: \\\"%s\\\", start: 0, count: 100) {" +
-                "paging {count total} elements {" +
-                "id keyImages{url} title urlSlug description price (country: \\\"DE\\\"){" +
-                "totalPrice {originalPrice discountPrice currencyCode}}}}}}\"}", name);
+        String query = new GraphqlEgsBuilder().setKeywords(name).build();
 
         String finalUrl = String.format("%s", baseUrl + graphqlUrl);
 
