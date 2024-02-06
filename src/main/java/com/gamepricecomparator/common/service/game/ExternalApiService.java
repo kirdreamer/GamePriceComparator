@@ -38,7 +38,7 @@ public class ExternalApiService {
             );
         } catch (JsonProcessingException e) {
             log.error("An error occurs during the mapping: {}", e.getMessage());
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         } catch (HttpClientErrorException e) {
             log.error("An error occurred during the mapping: {}", e.getMessage());
             throw new HttpException(e.getStatusCode().value(), e.getMessage());
@@ -53,7 +53,7 @@ public class ExternalApiService {
             );
         } catch (JsonProcessingException e) {
             log.error("An error occurs during the mapping: {}", e.getMessage());
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         } catch (HttpClientErrorException e) {
             log.error("An error occurred during the mapping: {}", e.getMessage());
             throw new HttpException(e.getStatusCode().value(), e.getMessage());

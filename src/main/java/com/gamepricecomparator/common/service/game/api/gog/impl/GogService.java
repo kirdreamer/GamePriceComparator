@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.service.game.api.gog.impl;
 
-import com.gamepricecomparator.common.constant.Platfrom;
+import com.gamepricecomparator.common.constant.Platform;
 import com.gamepricecomparator.common.dto.api.response.GogProduct;
 import com.gamepricecomparator.common.dto.api.response.GogResponse;
 import com.gamepricecomparator.common.mapper.PlatformsMapper;
@@ -85,7 +85,7 @@ public class GogService {
 
     public GameProviderResponse getGameInfoResponseFromGogProduct(GogProduct product) {
         return new GameProviderResponse(
-                Platfrom.GOG,
+                Platform.GOG,
                 product.id().toString(),
                 getPriceResponseFromGogProduct(product),
                 baseUrl + product.link()

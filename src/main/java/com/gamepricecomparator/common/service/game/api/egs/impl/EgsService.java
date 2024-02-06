@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.service.game.api.egs.impl;
 
-import com.gamepricecomparator.common.constant.Platfrom;
+import com.gamepricecomparator.common.constant.Platform;
 import com.gamepricecomparator.common.dto.api.response.EgsProduct;
 import com.gamepricecomparator.common.dto.api.response.EgsResponse;
 import com.gamepricecomparator.common.service.game.ExternalApiService;
@@ -39,7 +39,7 @@ public class EgsService {
     public List<EgsProduct> filterGamesInEgsList(List<EgsProduct> productList) {
         return productList.stream()
                 .filter(egsProduct -> Objects.nonNull(egsProduct.link()) ||
-                        (Objects.nonNull(egsProduct.offerMappings()) && egsProduct.offerMappings().size() > 0))
+                        (Objects.nonNull(egsProduct.offerMappings()) && !egsProduct.offerMappings().isEmpty()))
                 .toList();
     }
 
@@ -91,7 +91,7 @@ public class EgsService {
     public GameProviderResponse getGameInfoResponseFromEgsResponse(EgsProduct product) {
         String link = Objects.nonNull(product.link()) ? product.link() : product.offerMappings().get(0).pageSlug();
         return new GameProviderResponse(
-                Platfrom.EPIC_GAMES_STORE,
+                Platform.EPIC_GAMES_STORE,
                 product.id(),
                 getPriceResponseFromEgsResponse(product.price().totalPrice()),
                 baseUrl + "/p/" + link
