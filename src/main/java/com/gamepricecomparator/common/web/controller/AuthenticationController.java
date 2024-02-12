@@ -51,6 +51,7 @@ public class AuthenticationController {
     ) {
         log.info("Received Request to get logged in User");
 
+        log.info(authentication.toString());
         User user = (User) authentication.getPrincipal();
         String token = authHeader.substring(7);
 

@@ -1,9 +1,9 @@
 package com.gamepricecomparator.common.web.response.game;
 
-import com.gamepricecomparator.common.constant.Platfrom;
+import com.gamepricecomparator.common.constant.Platform;
 
 public record GameProviderResponse(
-        Platfrom name,
+        Platform name,
         String id,
         PriceResponse price,
         String link

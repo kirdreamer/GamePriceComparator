@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.service.game.api.steam.impl;
 
-import com.gamepricecomparator.common.constant.Platfrom;
+import com.gamepricecomparator.common.constant.Platform;
 import com.gamepricecomparator.common.dto.api.response.SteamAllGamesResponse;
 import com.gamepricecomparator.common.dto.api.response.SteamGameResponse;
 import com.gamepricecomparator.common.entity.steam.SteamGame;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.gamepricecomparator.common.service.UtilService.filterSymbolsInName;
@@ -74,7 +75,7 @@ public class SteamService {
         log.info("All information was successfully saved");
     }
 
-    public HashMap<String, GameResponse> prepareGameListFromSteam(List<SteamGameResponse> steamGameList) {
+    public Map<String, GameResponse> prepareGameListFromSteam(List<SteamGameResponse> steamGameList) {
         HashMap<String, GameResponse> gameList = new HashMap<>();
         log.debug("Trying to add all products from SteamGameList into HashMap...");
         for (SteamGameResponse game : steamGameList) {
@@ -111,7 +112,7 @@ public class SteamService {
 
     public GameProviderResponse getGameInfoResponseFromSteamGameResponse(SteamGameResponse game) {
         return new GameProviderResponse(
-                Platfrom.STEAM,
+                Platform.STEAM,
                 game.id().toString(),
                 getPriceResponseFromSteamGameResponse(game),
                 gamePageUrl + game.id()
@@ -129,7 +130,7 @@ public class SteamService {
                     game.price().currency(),
                     game.is_free()
             );
-        } else if (game.is_free()) {
+        } else if (Boolean.TRUE.equals(game.is_free())) {
             priceResponse = new PriceResponse(
                     0.0,
                     0.0,

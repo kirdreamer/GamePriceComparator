@@ -4,8 +4,12 @@ import java.util.Locale;
 
 public class UtilService {
 
+    private UtilService() {
+        throw new IllegalStateException("UtilService");
+    }
+
     public static String filterSymbolsInName(String name) {
-        return name.replaceAll("[^\\d\\w ]", "");
+        return name.replaceAll("[^\\w ]", "");
     }
 
     public static Double keepTwoDigitAfterDecimal(double value) {

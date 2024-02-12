@@ -1,6 +1,6 @@
 package com.gamepricecomparator.common.service.favorite;
 
-import com.gamepricecomparator.common.constant.Platfrom;
+import com.gamepricecomparator.common.constant.Platform;
 import com.gamepricecomparator.common.entity.user.User;
 import com.gamepricecomparator.common.repository.UserRepository;
 import com.gamepricecomparator.common.service.game.GameService;
@@ -47,7 +47,7 @@ public class FavoriteListEmailSenderService {
     public void sendPriceAlarmEmail() {
         for (GameResponse game :
                 gameService.getSpecificGamesListFromList(favoriteGameService.getAllFavoriteGames())) {
-            Map<Platfrom, GameProviderResponse> gameInfos = new HashMap<>();
+            Map<Platform, GameProviderResponse> gameInfos = new EnumMap<>(Platform.class);
 
             if (checkIfPriceLow(game)) {
                 List<String> emails = favoriteGameService.getAllEmailsByGame(game.getName());
@@ -61,7 +61,7 @@ public class FavoriteListEmailSenderService {
         }
     }
 
-    private String prepareMessageBody(String messageBody, Map.Entry<Platfrom, GameProviderResponse> gameInfo) {
+    private String prepareMessageBody(String messageBody, Map.Entry<Platform, GameProviderResponse> gameInfo) {
         return messageBody
                 .replaceFirst("\\{platform}", gameInfo.getKey().toString() + ", {platform}")
                 .replaceFirst("Price at \\{platform}", "Price at " + gameInfo.getKey().toString())
@@ -82,7 +82,7 @@ public class FavoriteListEmailSenderService {
     private void sendPriceAlarmEmailsWithBodyFromPath(
             List<String> emails,
             String emailBodyPath,
-            Map<Platfrom, GameProviderResponse> gameInfos,
+            Map<Platform, GameProviderResponse> gameInfos,
             String gameName) {
         String messageBody = "";
         try {
@@ -91,7 +91,7 @@ public class FavoriteListEmailSenderService {
                             Charset.defaultCharset())
                     .replace("{name}", gameName);
 
-            for (Map.Entry<Platfrom, GameProviderResponse> gameInfo : gameInfos.entrySet()) {
+            for (Map.Entry<Platform, GameProviderResponse> gameInfo : gameInfos.entrySet()) {
                 messageBody = prepareMessageBody(messageBody, gameInfo);
             }
             messageBody = clearRedundantPartsOfMessageBody(messageBody);
@@ -122,9 +122,9 @@ public class FavoriteListEmailSenderService {
         return false;
     }
 
-    public boolean checkIfPriceLowBy(Platfrom platfrom, GameResponse game) {
+    public boolean checkIfPriceLowBy(Platform platform, GameResponse game) {
         GameProviderResponse gameProviderResponse = game.game_providers.stream()
-                .filter(gameProvider -> gameProvider.name().equals(platfrom))
+                .filter(gameProvider -> gameProvider.name().equals(platform))
                 .findFirst().orElse(null);
         if (Objects.nonNull(gameProviderResponse))
             return Double.compare(gameProviderResponse.price().final_value(), gameProviderResponse.price().initial_value()) < 0;
