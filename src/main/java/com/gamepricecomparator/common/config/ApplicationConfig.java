@@ -13,13 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
-@Configuration
 @RequiredArgsConstructor
 @ComponentScan(basePackages = "com.gamepricecomparator")
-@PropertySource("classpath:gog.properties")
-@PropertySource("classpath:egs.properties")
-@PropertySource("classpath:steam.properties")
-@PropertySource("classpath:email.properties")
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
@@ -54,3 +49,4 @@ public class ApplicationConfig {
     }
 
 }
+

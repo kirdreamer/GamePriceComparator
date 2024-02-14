@@ -1,0 +1,503 @@
+{
+  "1091500": {
+    "success": true,
+    "data": {
+      "type": "game",
+      "name": "Cyberpunk 2077",
+      "steam_appid": 1091500,
+      "required_age": "18",
+      "is_free": false,
+      "controller_support": "full",
+      "dlc": [
+        1495710,
+        2060310,
+        2138330
+      ],
+      "detailed_description": "<h1>Cyberpunk 2077: Ultimate Edition<\/h1><p><a href=\"https:\/\/store.steampowered.com\/bundle\/32470\" target=\"_blank\" rel=\"\"  ><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/616x670.jpg?t=1706698946\" \/><\/a><\/p><br><h1>Check out other games from CD PROJEKT RED<\/h1><p><a href=\"https:\/\/store.steampowered.com\/app\/2138330\" target=\"_blank\" rel=\"\"  id=\"dynamiclink_0\" >https:\/\/store.steampowered.com\/app\/2138330<\/a><br><a href=\"https:\/\/store.steampowered.com\/app\/292030\" target=\"_blank\" rel=\"\"  id=\"dynamiclink_1\" >https:\/\/store.steampowered.com\/app\/292030<\/a><br><a href=\"https:\/\/store.steampowered.com\/app\/1284410\" target=\"_blank\" rel=\"\"  id=\"dynamiclink_2\" >https:\/\/store.steampowered.com\/app\/1284410<\/a><\/p><br><h1>About the Game<\/h1><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/EN_ABOUT_THE_GAME.jpg?t=1706698946\" \/><br><br>Cyberpunk 2077 is an open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival. Improved and featuring all-new free additional content, customize your character and playstyle as you take on jobs, build a reputation, and unlock upgrades. The relationships you forge and the choices you make will shape the story and the world around you. Legends are made here. What will yours be?<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/2-1_Update_Panel_600x225_EN.png?t=1706698946\" \/><br><br>IMMERSE YOURSELF WITH UPDATE 2.1<br>Night City feels more alive than ever with the free Update 2.1! Take a ride on the fully functional NCART metro system, listen to music as you explore the city with the Radioport, hang out with your partner in V’s apartment, compete in replayable races, ride new vehicles, enjoy improved bike combat and handling, discover hiddens secrets and much, much more!<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_CREATE_YOUR_OWN_CYBERPUNK_EN.png?t=1706698946\" \/><br><br>CREATE YOUR OWN CYBERPUNK<br>Become an urban outlaw equipped with cybernetic enhancements and build your legend on the streets of Night City.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_EXPLORE_THE_CITY_OF_FUTURE_EN.png?t=1706698946\" \/><br><br>EXPLORE THE CITY OF THE FUTURE<br>Night City is packed to the brim with things to do, places to see, and people to meet. And it’s up to you where to go, when to go, and how to get there.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_BUILD_YOUR_LEGEND_EN.png?t=1706698946\" \/><br><br>BUILD YOUR LEGEND<br>Go on daring adventures and build relationships with unforgettable characters whose fates are shaped by the choices you make.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_EQUIPPED_WITH_IMPROVEMENTS_EN.png?t=1706698946\" \/><br><br><br>EQUIPPED WITH IMPROVEMENTS<br>Experience Cyberpunk 2077 with a host of changes and improvements to gameplay and economy, the city, map usage, and more.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_INCLUDES_FREE_ADDITIONAL_CONTENT_EN.png?t=1706698946\" \/><br><br>CLAIM EXCLUSIVE ITEMS<br>Claim in-game swag &amp; digital goodies inspired by CD PROJEKT RED games as part of the My Rewards program.<br><br>GO TO <a href=\"https:\/\/steamcommunity.com\/linkfilter\/?u=http%3A%2F%2FCYBERPUNK.NET\" target=\"_blank\" rel=\" noopener\"  >CYBERPUNK.NET<\/a><br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/06._Social-Media_EN.png?t=1706698946\" \/>",
+      "about_the_game": "<img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/EN_ABOUT_THE_GAME.jpg?t=1706698946\" \/><br><br>Cyberpunk 2077 is an open-world, action-adventure RPG set in the megalopolis of Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival. Improved and featuring all-new free additional content, customize your character and playstyle as you take on jobs, build a reputation, and unlock upgrades. The relationships you forge and the choices you make will shape the story and the world around you. Legends are made here. What will yours be?<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/2-1_Update_Panel_600x225_EN.png?t=1706698946\" \/><br><br>IMMERSE YOURSELF WITH UPDATE 2.1<br>Night City feels more alive than ever with the free Update 2.1! Take a ride on the fully functional NCART metro system, listen to music as you explore the city with the Radioport, hang out with your partner in V’s apartment, compete in replayable races, ride new vehicles, enjoy improved bike combat and handling, discover hiddens secrets and much, much more!<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_CREATE_YOUR_OWN_CYBERPUNK_EN.png?t=1706698946\" \/><br><br>CREATE YOUR OWN CYBERPUNK<br>Become an urban outlaw equipped with cybernetic enhancements and build your legend on the streets of Night City.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_EXPLORE_THE_CITY_OF_FUTURE_EN.png?t=1706698946\" \/><br><br>EXPLORE THE CITY OF THE FUTURE<br>Night City is packed to the brim with things to do, places to see, and people to meet. And it’s up to you where to go, when to go, and how to get there.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_BUILD_YOUR_LEGEND_EN.png?t=1706698946\" \/><br><br>BUILD YOUR LEGEND<br>Go on daring adventures and build relationships with unforgettable characters whose fates are shaped by the choices you make.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_EQUIPPED_WITH_IMPROVEMENTS_EN.png?t=1706698946\" \/><br><br><br>EQUIPPED WITH IMPROVEMENTS<br>Experience Cyberpunk 2077 with a host of changes and improvements to gameplay and economy, the city, map usage, and more.<br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/NGU_INCLUDES_FREE_ADDITIONAL_CONTENT_EN.png?t=1706698946\" \/><br><br>CLAIM EXCLUSIVE ITEMS<br>Claim in-game swag &amp; digital goodies inspired by CD PROJEKT RED games as part of the My Rewards program.<br><br>GO TO <a href=\"https:\/\/steamcommunity.com\/linkfilter\/?u=http%3A%2F%2FCYBERPUNK.NET\" target=\"_blank\" rel=\" noopener\"  >CYBERPUNK.NET<\/a><br><br><img src=\"https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/extras\/06._Social-Media_EN.png?t=1706698946\" \/>",
+      "short_description": "Cyberpunk 2077 is an open-world, action-adventure RPG set in the dark future of Night City — a dangerous megalopolis obsessed with power, glamor, and ceaseless body modification.",
+      "supported_languages": "English<strong>*<\/strong>, French<strong>*<\/strong>, Italian<strong>*<\/strong>, German<strong>*<\/strong>, Spanish - Spain<strong>*<\/strong>, Arabic, Czech, Hungarian, Japanese<strong>*<\/strong>, Korean<strong>*<\/strong>, Polish<strong>*<\/strong>, Portuguese - Brazil<strong>*<\/strong>, Russian<strong>*<\/strong>, Simplified Chinese<strong>*<\/strong>, Spanish - Latin America, Thai, Traditional Chinese, Turkish, Ukrainian<br><strong>*<\/strong>languages with full audio support",
+      "header_image": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/header.jpg?t=1706698946",
+      "capsule_image": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/capsule_231x87.jpg?t=1706698946",
+      "capsule_imagev5": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/capsule_184x69.jpg?t=1706698946",
+      "website": "https:\/\/www.cyberpunk.net",
+      "pc_requirements": {
+        "minimum": "<strong>Minimum:<\/strong><br><ul class=\"bb_ul\"><li>Requires a 64-bit processor and operating system<br><\/li><li><strong>OS:<\/strong> 64-bit Windows 10<br><\/li><li><strong>Processor:<\/strong> Core i7-6700 or Ryzen 5 1600<br><\/li><li><strong>Memory:<\/strong> 12 GB RAM<br><\/li><li><strong>Graphics:<\/strong> GeForce GTX 1060 6GB or Radeon RX 580 8GB or Arc A380<br><\/li><li><strong>DirectX:<\/strong> Version 12<br><\/li><li><strong>Storage:<\/strong> 70 GB available space<br><\/li><li><strong>Additional Notes:<\/strong> SSD required. Attention: In this game you will encounter a variety of visual effects that may provide seizures or loss of consciousness in a minority of people. If you or someone you know experiences any of the above symptoms while playing, stop and seek medical attention immediately.<\/li><\/ul>",
+        "recommended": "<strong>Recommended:<\/strong><br><ul class=\"bb_ul\"><li>Requires a 64-bit processor and operating system<br><\/li><li><strong>OS:<\/strong> 64-bit Windows 10<br><\/li><li><strong>Processor:<\/strong> Core i7-12700 or Ryzen 7 7800X3D<br><\/li><li><strong>Memory:<\/strong> 16 GB RAM<br><\/li><li><strong>Graphics:<\/strong> GeForce RTX 2060 SUPER or Radeon RX 5700 XT or Arc A770<br><\/li><li><strong>DirectX:<\/strong> Version 12<br><\/li><li><strong>Storage:<\/strong> 70 GB available space<br><\/li><li><strong>Additional Notes:<\/strong> SSD required.<\/li><\/ul>"
+      },
+      "mac_requirements": {
+        "minimum": "<strong>Minimum:<\/strong><br><ul class=\"bb_ul\"><\/ul>",
+        "recommended": "<strong>Recommended:<\/strong><br><ul class=\"bb_ul\"><\/ul>"
+      },
+      "linux_requirements": {
+        "minimum": "<strong>Minimum:<\/strong><br><ul class=\"bb_ul\"><\/ul>",
+        "recommended": "<strong>Recommended:<\/strong><br><ul class=\"bb_ul\"><\/ul>"
+      },
+      "legal_notice": "CD PROJEKT®, Cyberpunk®, Cyberpunk 2077® are registered trademarks of CD PROJEKT S.A. © CD PROJEKT S.A. All rights reserved. All other copyrights and trademarks are the property of their respective owners.",
+      "developers": [
+        "CD PROJEKT RED"
+      ],
+      "publishers": [
+        "CD PROJEKT RED"
+      ],
+      "price_overview": {
+        "currency": "EUR",
+        "initial": 5999,
+        "final": 2999,
+        "discount_percent": 50,
+        "initial_formatted": "59,99€",
+        "final_formatted": "29,99€"
+      },
+      "packages": [
+        367653
+      ],
+      "package_groups": [
+        {
+          "name": "default",
+          "title": "Buy Cyberpunk 2077",
+          "description": "",
+          "selection_text": "Select a purchase option",
+          "save_text": "",
+          "display_type": 0,
+          "is_recurring_subscription": "false",
+          "subs": [
+            {
+              "packageid": 367653,
+              "percent_savings_text": "-50% ",
+              "percent_savings": 0,
+              "option_text": "Cyberpunk 2077 - <span class=\"discount_original_price\">59,99€<\/span> 29,99€",
+              "option_description": "",
+              "can_get_free_license": "0",
+              "is_free_license": false,
+              "price_in_cents_with_discount": 2999
+            }
+          ]
+        }
+      ],
+      "platforms": {
+        "windows": true,
+        "mac": false,
+        "linux": false
+      },
+      "metacritic": {
+        "score": 86,
+        "url": "https:\/\/www.metacritic.com\/game\/pc\/cyberpunk-2077?ftag=MCD-06-10aaa1f"
+      },
+      "categories": [
+        {
+          "id": 2,
+          "description": "Single-player"
+        },
+        {
+          "id": 22,
+          "description": "Steam Achievements"
+        },
+        {
+          "id": 28,
+          "description": "Full controller support"
+        },
+        {
+          "id": 29,
+          "description": "Steam Trading Cards"
+        },
+        {
+          "id": 23,
+          "description": "Steam Cloud"
+        }
+      ],
+      "genres": [
+        {
+          "id": "3",
+          "description": "RPG"
+        }
+      ],
+      "screenshots": [
+        {
+          "id": 0,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_7924f64b6e5d586a80418c9896a1c92881a7905b.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_7924f64b6e5d586a80418c9896a1c92881a7905b.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 1,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_4eb068b1cf52c91b57157b84bed18a186ed7714b.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_4eb068b1cf52c91b57157b84bed18a186ed7714b.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 2,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_b529b0abc43f55fc23fe8058eddb6e37c9629a6a.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_b529b0abc43f55fc23fe8058eddb6e37c9629a6a.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 3,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_8640d9db74f7cad714f6ecfb0e1aceaa3f887e58.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_8640d9db74f7cad714f6ecfb0e1aceaa3f887e58.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 4,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_9284d1c5b248726760233a933dbb83757d7d5d95.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_9284d1c5b248726760233a933dbb83757d7d5d95.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 5,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_4bda6f67580d94832ed2d5814e41ebe018ba1d9e.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_4bda6f67580d94832ed2d5814e41ebe018ba1d9e.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 6,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_e5a94665dbfa5a30931cff2f45cdc0ebea9fcebb.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_e5a94665dbfa5a30931cff2f45cdc0ebea9fcebb.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 7,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_429db1d013a0366417d650d84f1eff02d1a18c2d.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_429db1d013a0366417d650d84f1eff02d1a18c2d.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 8,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_872822c5e50dc71f345416098d29fc3ae5cd26c1.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_872822c5e50dc71f345416098d29fc3ae5cd26c1.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 9,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_ae4465fa8a44dd330dbeb7992ba196c2f32cabb1.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_ae4465fa8a44dd330dbeb7992ba196c2f32cabb1.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 10,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_f79fda81e6f3a37e0978054102102d71840f8b57.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_f79fda81e6f3a37e0978054102102d71840f8b57.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 11,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_bb1a60b8e5061caef7208369f42c5c9d574c9ac4.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_bb1a60b8e5061caef7208369f42c5c9d574c9ac4.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 12,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_a0c4e4015b5cf766d19bf97eee8b086183510e04.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_a0c4e4015b5cf766d19bf97eee8b086183510e04.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 13,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_b20689e73e3ac19bcc5fad2c18d0353c769de144.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_b20689e73e3ac19bcc5fad2c18d0353c769de144.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 14,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_ff3d920e254d18aa2a25d3765ac2ebe845efd208.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_ff3d920e254d18aa2a25d3765ac2ebe845efd208.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 15,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_0002f18563d313bdd1d82c725d411408ebf762b0.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_0002f18563d313bdd1d82c725d411408ebf762b0.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 16,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_526123764d1c628caa1eb62c596f1b732f416c8c.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_526123764d1c628caa1eb62c596f1b732f416c8c.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 17,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_284ba40590de8f604ae693631c751a0aefdc452e.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_284ba40590de8f604ae693631c751a0aefdc452e.1920x1080.jpg?t=1706698946"
+        },
+        {
+          "id": 18,
+          "path_thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_9beef14102f164fa1163536d0fb3a51d0a2e4a3f.600x338.jpg?t=1706698946",
+          "path_full": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/ss_9beef14102f164fa1163536d0fb3a51d0a2e4a3f.1920x1080.jpg?t=1706698946"
+        }
+      ],
+      "movies": [
+        {
+          "id": 256987121,
+          "name": "028_2_1_UpdateTrailer_EN UK_PEGI 18_16x9_1080",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256987121\/movie.293x165.jpg?t=1701872779",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256987121\/movie480_vp9.webm?t=1701872779",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256987121\/movie_max_vp9.webm?t=1701872779"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256987121\/movie480.mp4?t=1701872779",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256987121\/movie_max.mp4?t=1701872779"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256983891,
+          "name": "002 BaseGame Accolades Trailer EN-UK PEGI18 16x9 1080",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256983891\/movie.293x165.jpg?t=1700653184",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256983891\/movie480_vp9.webm?t=1700653184",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256983891\/movie_max_vp9.webm?t=1700653184"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256983891\/movie480.mp4?t=1700653184",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256983891\/movie_max.mp4?t=1700653184"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256977924,
+          "name": "002_EP1_2.0_trailer_EN_UK_PEGI 18_16x9_1080",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256977924\/movie.293x165.jpg?t=1698157640",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256977924\/movie480_vp9.webm?t=1698157640",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256977924\/movie_max_vp9.webm?t=1698157640"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256977924\/movie480.mp4?t=1698157640",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256977924\/movie_max.mp4?t=1698157640"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256979871,
+          "name": "095_NWTP_trailer_EN UK_PEGI 18_16x9_1080_",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256979871\/movie.293x165.jpg?t=1699262699",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256979871\/movie480_vp9.webm?t=1699262699",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256979871\/movie_max_vp9.webm?t=1699262699"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256979871\/movie480.mp4?t=1699262699",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256979871\/movie_max.mp4?t=1699262699"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256975573,
+          "name": "062_BuildVideos_Ninja_EN UK_PEGI 18_16x9_1080__Burned in Subs",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975573\/movie.293x165.jpg?t=1697117125",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975573\/movie480_vp9.webm?t=1697117125",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975573\/movie_max_vp9.webm?t=1697117125"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975573\/movie480.mp4?t=1697117125",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975573\/movie_max.mp4?t=1697117125"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256975544,
+          "name": "044_BuildVideos_Netrunner_EN UK_PEGI 18_16x9_1080__Burned in Subs",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975544\/movie.293x165.jpg?t=1697117214",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975544\/movie480_vp9.webm?t=1697117214",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975544\/movie_max_vp9.webm?t=1697117214"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975544\/movie480.mp4?t=1697117214",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975544\/movie_max.mp4?t=1697117214"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256975514,
+          "name": "026_BuildVideos_Solo_EN UK_PEGI 18_16x9_1080__Burned in Subs",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975514\/movie.293x165.jpg?t=1697117302",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975514\/movie480_vp9.webm?t=1697117302",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975514\/movie_max_vp9.webm?t=1697117302"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975514\/movie480.mp4?t=1697117302",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256975514\/movie_max.mp4?t=1697117302"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256904408,
+          "name": "047_CP_ER_trailer_EN UK_PEGI 18 _16x9_1080__",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256904408\/movie.293x165.jpg?t=1662480409",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256904408\/movie480_vp9.webm?t=1662480409",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256904408\/movie_max_vp9.webm?t=1662480409"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256904408\/movie480.mp4?t=1662480409",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256904408\/movie_max.mp4?t=1662480409"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256876053,
+          "name": "171_CPNG_LOBI_EN UK_PEGI 18 _16x9_1080_PC__",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256876053\/movie.293x165.jpg?t=1697117313",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256876053\/movie480_vp9.webm?t=1697117313",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256876053\/movie_max_vp9.webm?t=1697117313"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256876053\/movie480.mp4?t=1697117313",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256876053\/movie_max.mp4?t=1697117313"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256810256,
+          "name": "023_CP_Gameplay_Trailer_EN UK_PEGI 18 _16x9_1080__",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256810256\/movie.293x165.jpg?t=1697117318",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256810256\/movie480_vp9.webm?t=1697117318",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256810256\/movie_max_vp9.webm?t=1697117318"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256810256\/movie480.mp4?t=1697117318",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256810256\/movie_max.mp4?t=1697117318"
+          },
+          "highlight": true
+        },
+        {
+          "id": 256812920,
+          "name": "025_CP_Launch_Trailer_EN UK_PEGI 18 _16x9_1080__",
+          "thumbnail": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256812920\/movie.293x165.jpg?t=1697117322",
+          "webm": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256812920\/movie480_vp9.webm?t=1697117322",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256812920\/movie_max_vp9.webm?t=1697117322"
+          },
+          "mp4": {
+            "480": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256812920\/movie480.mp4?t=1697117322",
+            "max": "http:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/256812920\/movie_max.mp4?t=1697117322"
+          },
+          "highlight": true
+        }
+      ],
+      "recommendations": {
+        "total": 637307
+      },
+      "achievements": {
+        "total": 57,
+        "highlighted": [
+          {
+            "name": "The Fool",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/7975d6e5d790b88f030195e3b1a38e49a5de1c8d.jpg"
+          },
+          {
+            "name": "The Lovers",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/25bab7e2288262ad801664e62f241e2839edb457.jpg"
+          },
+          {
+            "name": "The Hermit",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/d1e79618b612be87bff4f5c70b1e825e37b05540.jpg"
+          },
+          {
+            "name": "The Wheel of Fortune",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/61c7ccea74b66ef3f5d51c078d900d930346e74a.jpg"
+          },
+          {
+            "name": "The High Priestess",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/8f5eacf50eb2ad11fe9dbd1d3a98c306d54ff545.jpg"
+          },
+          {
+            "name": "The World",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/25c57ecea783efc3f9d04eec43401264ed5eb9b2.jpg"
+          },
+          {
+            "name": "The Devil",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/e63819b5dc0e127a2535e4fd76f726b1ba442afa.jpg"
+          },
+          {
+            "name": "The Star",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/96506dab554565fd3dc78446a6df17040b353f16.jpg"
+          },
+          {
+            "name": "The Sun",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/8bf8ad71b62614b329eab2bac069724d34d69b27.jpg"
+          },
+          {
+            "name": "Temperance",
+            "path": "https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/images\/apps\/1091500\/c81713b7813e1675add335a1ce778588b70d09f9.jpg"
+          }
+        ]
+      },
+      "release_date": {
+        "coming_soon": false,
+        "date": "9 Dec, 2020"
+      },
+      "support_info": {
+        "url": "http:\/\/en.cdprojektred.com\/support",
+        "email": ""
+      },
+      "background": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/page_bg_generated_v6b.jpg?t=1706698946",
+      "background_raw": "https:\/\/cdn.akamai.steamstatic.com\/steam\/apps\/1091500\/page.bg.jpg?t=1706698946",
+      "content_descriptors": {
+        "ids": [
+          1,
+          2,
+          5
+        ],
+        "notes": "Cyberpunk 2077 contains strong language, intense violence, blood and gore, as well as nudity and sexual material.\r\n"
+      },
+      "ratings": {
+        "esrb": {
+          "rating": "m",
+          "descriptors": "Blood and Gore\r\nIntense Violence\r\nNudity\r\nStrong Language\r\nStrong Sexual Content\r\nUse of Drugs\r\nUse of Alcohol",
+          "required_age": "17",
+          "use_age_gate": "true"
+        },
+        "pegi": {
+          "rating": "18",
+          "descriptors": "Violence\r\nSex\r\nBad Language",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "oflc": {
+          "rating": "r18",
+          "descriptors": "High impact themes\r\nSex\r\nViolence\r\nReferences to sexual violence",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "nzoflc": {
+          "rating": "r18",
+          "descriptors": "Violence\r\nOffensive language\r\nSex scenes",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "kgrb": {
+          "rating": "18",
+          "descriptors": "Sexuality\r\nViolence\r\nCrude Language\r\nUsage of Drugs",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "dejus": {
+          "rating": "18",
+          "descriptors": "Conteúdo sexual\r\nDrogas\r\nViolência Extrema",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "mda": {
+          "rating": "M18",
+          "descriptors": "Violence\r\nSexual scenes\r\nCoarse language",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "csrr": {
+          "rating": "R",
+          "descriptors": "Sex\r\nViolence\r\nTabacco\r\nAlcohol",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "crl": {
+          "rating": "18",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "usk": {
+          "rating": "18",
+          "use_age_gate": "true",
+          "required_age": "18"
+        },
+        "steam_germany": {
+          "rating_generated": "1",
+          "rating": "18",
+          "required_age": "18",
+          "banned": "0",
+          "use_age_gate": "0",
+          "descriptors": "Sexuelle Inhalte"
+        }
+      }
+    }
+  }
+}
