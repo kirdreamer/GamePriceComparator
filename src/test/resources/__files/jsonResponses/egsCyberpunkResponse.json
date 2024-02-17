@@ -1,0 +1,61 @@
+{
+  "errors": [
+    {
+      "message": "CatalogOffer/offerMappings: Request failed with status code 404",
+      "locations": [
+        {
+          "line": 1,
+          "column": 141
+        }
+      ],
+      "correlationId": "f3197a30-cb41-11ee-b41b-9bd8fa80f822",
+      "serviceResponse": "{\"errorMessage\":\"The item or resource being requested could not be found.\",\"errorCode\":\"errors.com.epicgames.not_found\",\"numericErrorCode\":1004,\"errorStatus\":404}",
+      "stack": null,
+      "path": [
+        "Catalog",
+        "searchStore",
+        "elements",
+        0,
+        "offerMappings"
+      ]
+    }
+  ],
+  "data": {
+    "Catalog": {
+      "searchStore": {
+        "paging": {
+          "count": 100,
+          "total": 4
+        },
+        "elements": [
+          {
+            "id": "70b2be5bbcbd4d90a3f209b8e498255f",
+            "keyImages": [
+              {
+                "url": "https://cdn1.epicgames.com/undefined/offer/EGS_CDPROJEKTRED_CYBERPUNK2077_S2_DESCRIPTION-2560x1440-d87200f881054214cef31f6c4b9c8d59.jpg"
+              },
+              {
+                "url": "https://cdn1.epicgames.com/undefined/offer/EGS_CDPROJEKTRED_CYBERPUNK2077_S3_DESCRIPTION-1280x1440-58949bccc0886694cf24d8c0f153d250.jpg"
+              },
+              {
+                "url": "https://cdn1.epicgames.com/undefined/offer/EGS_CDPROJEKTRED_CYBERPUNK2077_IC1_MAINLOGO-EN-2000x492-39264386b04d461fc14a57d57c409228.png"
+              }
+            ],
+            "title": "Cyberpunk 2077",
+            "productSlug": "cyberpunk-2077",
+            "offerMappings": null,
+            "description": "Cyberpunk 2077",
+            "price": {
+              "totalPrice": {
+                "originalPrice": 5999,
+                "discountPrice": 5999,
+                "currencyCode": "EUR"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "extensions": {}
+}

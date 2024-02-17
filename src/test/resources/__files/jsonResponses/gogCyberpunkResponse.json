@@ -1,0 +1,107 @@
+{
+  "products": [
+    {
+      "customAttributes": [],
+      "developer": "CD PROJEKT RED",
+      "publisher": "CD PROJEKT RED",
+      "gallery": [
+        "//images-2.gog-statics.com/e9b6d2087dd79ee5606fc553f7dc0fa2fd9ec3474e578a3d9e35e5b0d62c9c69",
+        "//images-3.gog-statics.com/343a863b924b8e2785e6cfea79a42bbd424ffbd80ba8ff2a7ca45774a692f712",
+        "//images-1.gog-statics.com/375e1d789ec9e9f3039e13c14fa2fd43649774ac9b699937279d239ad5db8ad1",
+        "//images-4.gog-statics.com/6f8a8c5cd762bc50367f7950537b6ecad82342ebef770c60d6bada1ed759b986",
+        "//images-4.gog-statics.com/8a2e3600694d372c38e5fb17b81bed10abb4e6beb858febcf513db10d644cf26",
+        "//images-3.gog-statics.com/ca8dfb9131cc001de4f27bded7712e0afc22d6fb04884cec55b5477a081da57e",
+        "//images-4.gog-statics.com/14ec46fffb1751d1f65792e01ac80273dc0d643779286a42f2ac442cb590eed8",
+        "//images-4.gog-statics.com/7c4813c3b2076c7eab005721d1ca002d1cbb4df18a6f39bf6da76bd0dd53753d",
+        "//images-1.gog-statics.com/71743a80e84656f042631561e2d025db3256c5d4281ff00113189eb555d80672",
+        "//images-2.gog-statics.com/c0d58028ae827a37a47a4ab77473bdeb27ec92c65093ea21ab468fe4bfda59db",
+        "//images-3.gog-statics.com/b4765b5f5baa7ca0ca20264578671850d1a51a361a0a0cffd0b2a26da6d5d7c5",
+        "//images-1.gog-statics.com/79714458ebc738a598df8443d3d144745b9a2c92f575c27e3f4e956c0c4b0c07",
+        "//images-1.gog-statics.com/79f32b2868c15b575bf9c95b3946bc43eb8215857856cbe663db5f5c784213e6",
+        "//images-1.gog-statics.com/8777beb2b6d99666eeb3123a186d673261f29ba5289408f05d59a551f7f25d0d",
+        "//images-2.gog-statics.com/bed5c0e147f3ddccb83deaf0d2cdf300f5be2db564a9c51a0fea99148e346993"
+      ],
+      "video": {
+        "id": "UIE1JjNOqHM",
+        "provider": "youtube"
+      },
+      "supportedOperatingSystems": [
+        "windows"
+      ],
+      "genres": [
+        "Role-playing",
+        "Action",
+        "Sci-fi"
+      ],
+      "globalReleaseDate": 1607551200,
+      "isTBA": false,
+      "price": {
+        "currency": "EUR",
+        "amount": "29.99",
+        "baseAmount": "59.99",
+        "finalAmount": "29.99",
+        "isDiscounted": true,
+        "discountPercentage": 50,
+        "discountDifference": "30.00",
+        "symbol": "€",
+        "isFree": false,
+        "discount": 50,
+        "isBonusStoreCreditIncluded": false,
+        "bonusStoreCreditAmount": "0.00",
+        "promoId": "202402_cdpr_games"
+      },
+      "isDiscounted": true,
+      "isInDevelopment": false,
+      "id": 2093619782,
+      "releaseDate": 1607551200,
+      "availability": {
+        "isAvailable": true,
+        "isAvailableInAccount": true
+      },
+      "salesVisibility": {
+        "isActive": true,
+        "fromObject": {
+          "date": "2020-12-10 01:54:00.000000",
+          "timezone_type": 3,
+          "timezone": "Europe/Nicosia"
+        },
+        "from": 1607558040,
+        "toObject": {
+          "date": "2037-12-31 23:59:59.000000",
+          "timezone_type": 3,
+          "timezone": "Europe/Nicosia"
+        },
+        "to": 2145909599
+      },
+      "buyable": true,
+      "title": "Cyberpunk 2077",
+      "image": "//images-2.gog-statics.com/c75e674590b8947542c809924df30bbef2190341163dd08668e243c266be70c5",
+      "url": "/en/game/cyberpunk_2077",
+      "supportUrl": "/support/cyberpunk_2077",
+      "forumUrl": "/forum/cyberpunk_2077",
+      "worksOn": {
+        "Windows": true,
+        "Mac": false,
+        "Linux": false
+      },
+      "category": "Role-playing",
+      "originalCategory": "Role-playing",
+      "rating": 50,
+      "type": 2,
+      "isComingSoon": false,
+      "isPriceVisible": true,
+      "isMovie": false,
+      "isGame": true,
+      "slug": "cyberpunk_2077",
+      "isWishlistable": true,
+      "extraInfo": [],
+      "ageLimit": 18
+    }
+  ],
+  "ts": null,
+  "page": 1,
+  "totalPages": 1,
+  "totalResults": "1",
+  "totalGamesFound": 1,
+  "totalMoviesFound": 0
+}

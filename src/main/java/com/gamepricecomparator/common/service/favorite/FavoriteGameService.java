@@ -93,7 +93,7 @@ public class FavoriteGameService {
 
         Map<String, GameDTO> favoriteGames = getFavoriteGamesByEmail(token);
 
-        if (favoriteGames.size() != 0)
+        if (!favoriteGames.isEmpty())
             for (GameResponse game : games)
                 if (favoriteGames.containsKey(game.getName()))
                     game.setIs_favorite(true);
