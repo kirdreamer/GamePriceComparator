@@ -7,10 +7,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
@@ -31,8 +34,8 @@ class GameControllerTest extends AbstractBaseControllerTest {
     @Test
     @DisplayName("(Positive) Should return list of 'Cyberpunk'-games, " +
             "where response has 'Cyberpunk 2077' in Steam, Gog and Egs, " +
-            "games is not favorite without token")
-    void testGetGameListWithSteamGogEgsWithoutToken() throws Exception {
+            "game is not favorite without token")
+    void requestGetGameListWithSteamGogEgsWithoutToken() throws Exception {
         addAllGamesSteamInDatabaseMock();
 
         String result = performGetRequestWithoutToken(GET_GAME_LIST_URL)
@@ -52,8 +55,8 @@ class GameControllerTest extends AbstractBaseControllerTest {
     @Test
     @DisplayName("(Positive) Should return list of 'Cyberpunk'-games, " +
             "where response has 'Cyberpunk 2077' in Steam, Gog and Egs, " +
-            "games is not favorite without token")
-    void testGetGameListWithSteamGogEgsWithToken() throws Exception {
+            "game is not favorite with token")
+    void requestGetGameListWithSteamGogEgsNotFavoriteWithToken() throws Exception {
         addAllGamesSteamInDatabaseMock();
 
         String result = performGetRequestWithToken(GET_GAME_LIST_URL, generateToken())
@@ -74,8 +77,8 @@ class GameControllerTest extends AbstractBaseControllerTest {
     @Test
     @DisplayName("(Positive) Should return list of 'Cyberpunk'-games, " +
             "where response has 'Cyberpunk 2077' in Gog and Egs, " +
-            "games is not favorite without token")
-    void testGetGameListWithGogEgs() throws Exception {
+            "game is not favorite without token")
+    void requestGetGameListWithGogEgs() throws Exception {
         String result = performGetRequestWithoutToken(GET_GAME_LIST_URL)
                 .andExpect(status().isOk())
                 .andReturn()
@@ -90,6 +93,27 @@ class GameControllerTest extends AbstractBaseControllerTest {
         assertThat(gameResponses.getFirst().getIs_favorite()).isFalse();
     }
 
-    //TODO Add Negative tests
-    //TODO Add isFavorite cases
+    @Test
+    @DisplayName("(Positive) Should return list of 'Cyberpunk'-games, " +
+            "where response has 'Cyberpunk 2077' in Steam, Gog and Egs, " +
+            "game is favorite with token")
+    void requestGetGameListWithSteamGogEgsFavoriteWithToken() throws Exception {
+        prepareFavoriteGameCyberpunkResponse();
+        addAllGamesSteamInDatabaseMock();
+
+        String result = performGetRequestWithToken(GET_GAME_LIST_URL, generateToken())
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        Mockito.verify(favoriteGameRepository, times(1)).findByEmailIgnoreCase(any(String.class));
+
+        List<GameResponse> gameResponses = objectMapper.readValue(result, new TypeReference<>() {
+        });
+
+        assertThat(gameResponses).isNotNull().isNotEmpty();
+        assertThat(gameResponses.getFirst().game_providers).hasSize(3);
+        assertThat(gameResponses.getFirst().getIs_favorite()).isTrue();
+    }
 }

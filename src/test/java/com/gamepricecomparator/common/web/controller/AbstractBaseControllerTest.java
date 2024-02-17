@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.gamepricecomparator.StartTestApplication;
+import com.gamepricecomparator.common.dto.GameDTO;
+import com.gamepricecomparator.common.entity.FavoriteGame;
 import com.gamepricecomparator.common.entity.steam.SteamGame;
 import com.gamepricecomparator.common.entity.user.Role;
 import com.gamepricecomparator.common.entity.user.User;
+import com.gamepricecomparator.common.repository.FavoriteGameRepository;
 import com.gamepricecomparator.common.repository.SteamGameRepository;
 import com.gamepricecomparator.common.repository.UserRepository;
 import com.gamepricecomparator.common.service.AuthenticationService;
@@ -15,8 +18,8 @@ import com.gamepricecomparator.common.web.request.AuthenticationRequest;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,11 +49,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest(classes = StartTestApplication.class)
 public abstract class AbstractBaseControllerTest {
     private static final String JSON_FOLDER_PATH = "jsonResponses/";
-
-    public static final String DEFAULT_EMAIL = "test1@example.com";
-    public static final String DEFAULT_NICKNAME = "testNickname";
-    public static final String DEFAULT_PASSWORD = "testPassword";
-    public static final int DEFAULT_ID = 1;
+    protected String wrongToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0MUBleGFtcGxlLmNvbSIsImlhdCI6MTcwNzY0OTQyOCwiZXhwIjoxNzA3NjQ5NzI4fQ.ueSCRzp4_1BzWvpNtVf36h7BaM2usDlSzD5ctJN3HybAiZ_NPXgNWspibNkVVxpx";
+    protected static final String DEFAULT_EMAIL = "test1@example.com";
+    protected static final String DEFAULT_NICKNAME = "testNickname";
+    protected static final String DEFAULT_PASSWORD = "testPassword";
+    protected static final int DEFAULT_ID = 1;
 
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.1");
     protected static final WireMockServer wireMockServer = new WireMockServer(options().port(8080));
@@ -60,6 +63,9 @@ public abstract class AbstractBaseControllerTest {
 
     @MockBean
     protected SteamGameRepository steamGameRepository;
+
+    @MockBean
+    protected FavoriteGameRepository favoriteGameRepository;
 
     @Autowired
     protected MockMvc mvc;
@@ -100,7 +106,7 @@ public abstract class AbstractBaseControllerTest {
             jsonRequest = objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(request);
         } catch (JsonProcessingException e) {
             log.error("an error occurred: {}", e.getMessage());
-            Assert.fail();
+            Assertions.fail();
         }
         assertThat(jsonRequest).isNotNull();
         return jsonRequest;
@@ -130,6 +136,38 @@ public abstract class AbstractBaseControllerTest {
                 .build();
     }
 
+    protected FavoriteGame buildMockFavoriteGameCyberpunk() {
+        return new FavoriteGame(
+                1L,
+                1091500,
+                2093619782,
+                "70b2be5bbcbd4d90a3f209b8e498255f",
+                "Cyberpunk 2077",
+                DEFAULT_EMAIL);
+    }
+
+    protected void prepareFavoriteGameCyberpunkResponse() {
+        FavoriteGame favoriteGame = buildMockFavoriteGameCyberpunk();
+
+        GameDTO gameDTO = new GameDTO(
+                favoriteGame.getName(),
+                favoriteGame.getSteamId(),
+                favoriteGame.getGogId(),
+                favoriteGame.getEgsId());
+
+        when(favoriteGameRepository.findByEmailAndNameIgnoreCase(any(String.class), any(String.class)))
+                .thenReturn(Optional.of(favoriteGame));
+
+        when(favoriteGameRepository.findByEmailIgnoreCase(any(String.class)))
+                .thenReturn(Optional.of(List.of(favoriteGame)));
+
+        when(favoriteGameRepository.findEmailsByName(any(String.class)))
+                .thenReturn(Optional.of(List.of(DEFAULT_EMAIL)));
+
+        when(favoriteGameRepository.findAllFavoriteGames())
+                .thenReturn(Optional.of(List.of(gameDTO)));
+    }
+
     protected ResultActions performPostRequestWithJson(String url, String jsonRequest) {
         try {
             return mvc.perform(post(url)
@@ -137,7 +175,7 @@ public abstract class AbstractBaseControllerTest {
                     .content(jsonRequest));
         } catch (Exception e) {
             log.error("an error occurred: {}", e.getMessage());
-            Assert.fail();
+            Assertions.fail();
         }
         return null;
     }
@@ -150,7 +188,7 @@ public abstract class AbstractBaseControllerTest {
                     .content(jsonRequest));
         } catch (Exception e) {
             log.error("an error occurred: {}", e.getMessage());
-            Assert.fail();
+            Assertions.fail();
         }
         return null;
     }
@@ -161,7 +199,7 @@ public abstract class AbstractBaseControllerTest {
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + token));
         } catch (Exception e) {
             log.error("an error occurred: {}", e.getMessage());
-            Assert.fail();
+            Assertions.fail();
         }
         return null;
     }
@@ -171,7 +209,7 @@ public abstract class AbstractBaseControllerTest {
             return mvc.perform(get(url));
         } catch (Exception e) {
             log.error("an error occurred: {}", e.getMessage());
-            Assert.fail();
+            Assertions.fail();
         }
         return null;
     }

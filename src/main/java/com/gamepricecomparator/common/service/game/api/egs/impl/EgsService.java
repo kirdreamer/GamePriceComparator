@@ -79,7 +79,7 @@ public class EgsService {
     public GameResponse getGameResponseFromEgsResponse(EgsProduct product) {
         GameResponse gameResponse = GameResponse.builder()
                 .name(product.name())
-                .image(product.images().get(0).url())
+                .image(product.images().getFirst().url())
                 .short_description(product.short_description())
                 .game_providers(new ArrayList<>())
                 .is_favorite(false)
@@ -89,7 +89,7 @@ public class EgsService {
     }
 
     public GameProviderResponse getGameInfoResponseFromEgsResponse(EgsProduct product) {
-        String link = Objects.nonNull(product.link()) ? product.link() : product.offerMappings().get(0).pageSlug();
+        String link = Objects.nonNull(product.link()) ? product.link() : product.offerMappings().getFirst().pageSlug();
         return new GameProviderResponse(
                 Platform.EPIC_GAMES_STORE,
                 product.id(),

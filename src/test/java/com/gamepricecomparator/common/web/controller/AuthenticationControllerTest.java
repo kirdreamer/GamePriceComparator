@@ -30,7 +30,7 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
     class TestRegister {
         @Test
         @DisplayName("(Positive) Should register successfully a new user")
-        void testSuccessfulRegister() throws Exception {
+        void makeSuccessfulRegister() throws Exception {
             RegisterRequest registerRequest =
                     new RegisterRequest(DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
 
@@ -42,11 +42,11 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
 
         @Test
         @DisplayName("(Negative) Should reject an attempt to register user with an existing email")
-        void testAttemptToRegisterUserWithExistingEmail() throws Exception {
+        void makeAttemptToRegisterUserWithExistingEmail() throws Exception {
             User user =
                     buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, "testNick", DEFAULT_PASSWORD);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.ofNullable(user));
+            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             RegisterRequest registerRequest =
                     new RegisterRequest(DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
@@ -59,11 +59,11 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
 
         @Test
         @DisplayName("(Negative) Should reject an attempt to register user with an existing nickname")
-        void testAttemptToRegisterUserWithExistingNickname() throws Exception {
+        void makeAttemptToRegisterUserWithExistingNickname() throws Exception {
             User user =
                     buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
 
-            when(userRepository.findByNickname(DEFAULT_NICKNAME)).thenReturn(Optional.ofNullable(user));
+            when(userRepository.findByNickname(DEFAULT_NICKNAME)).thenReturn(Optional.of(user));
 
             RegisterRequest registerRequest =
                     new RegisterRequest("testtest@example.com", DEFAULT_NICKNAME, DEFAULT_PASSWORD);
@@ -80,11 +80,11 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
     class TestLogin {
         @Test
         @DisplayName("(Positive) Should successfully login as user")
-        void testSuccessfulLogin() throws Exception {
+        void makeSuccessfulLogin() throws Exception {
             User user =
                     buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.ofNullable(user));
+            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, DEFAULT_PASSWORD);
@@ -102,7 +102,7 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
 
         @Test
         @DisplayName("(Negative) Should reject login because of non existing user")
-        void testAttemptToLoginWithNonExistingUser() throws Exception {
+        void makeAttemptToLoginWithNonExistingUser() throws Exception {
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, DEFAULT_PASSWORD);
 
@@ -121,11 +121,11 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
 
         @Test
         @DisplayName("(Negative) Should reject login because of wrong password")
-        void testAttemptToLoginWithWrongPassword() throws Exception {
+        void makeAttemptToLoginWithWrongPassword() throws Exception {
             User user =
                     buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.ofNullable(user));
+            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, "ne ponyal");
@@ -149,11 +149,11 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
     class TestLoggedInUser {
         @Test
         @DisplayName("(Positive) Should return response body with valid token")
-        void testGetLoggedInUser() throws Exception {
+        void makeRequestGetLoggedInUser() throws Exception {
             User user =
                     buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.ofNullable(user));
+            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, DEFAULT_PASSWORD);
@@ -183,9 +183,7 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
 
         @Test
         @DisplayName("(Negative) Should reject login because of non existing user")
-        void testAttemptToValidateTokenWithWrongToken() throws Exception {
-            String wrongToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0MUBleGFtcGxlLmNvbSIsImlhdCI6MTcwNzY0OTQyOCwiZXhwIjoxNzA3NjQ5NzI4fQ.ueSCRzp4_1BzWvpNtVf36h7BaM2usDlSzD5ctJN3HybAiZ_NPXgNWspibNkVVxpx";
-
+        void makeAttemptToValidateTokenWithWrongToken() throws Exception {
             performGetRequestWithToken(LOGGED_USER_URL, wrongToken)
                     .andExpect(status().isForbidden());
         }
