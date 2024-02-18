@@ -13,6 +13,7 @@ import com.gamepricecomparator.common.repository.FavoriteGameRepository;
 import com.gamepricecomparator.common.repository.SteamGameRepository;
 import com.gamepricecomparator.common.repository.UserRepository;
 import com.gamepricecomparator.common.service.AuthenticationService;
+import com.gamepricecomparator.common.service.favorite.FavoriteListEmailSenderService;
 import com.gamepricecomparator.common.service.game.api.steam.impl.SteamService;
 import com.gamepricecomparator.common.web.request.AuthenticationRequest;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -21,10 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +42,6 @@ import java.util.Optional;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
@@ -54,7 +56,6 @@ public abstract class AbstractBaseControllerTest {
     protected static final String DEFAULT_NICKNAME = "testNickname";
     protected static final String DEFAULT_PASSWORD = "testPassword";
     protected static final int DEFAULT_ID = 1;
-
     private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.1");
     protected static final WireMockServer wireMockServer = new WireMockServer(options().port(8080));
 
@@ -66,6 +67,9 @@ public abstract class AbstractBaseControllerTest {
 
     @MockBean
     protected FavoriteGameRepository favoriteGameRepository;
+
+    @SpyBean
+    protected FavoriteListEmailSenderService favoriteListEmailSenderService;
 
     @Autowired
     protected MockMvc mvc;
@@ -83,8 +87,8 @@ public abstract class AbstractBaseControllerTest {
     protected SteamService steamService;
 
     protected String generateToken() {
-        when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.ofNullable(
-                buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD)
+        Mockito.when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.ofNullable(
+                buildMockUser(DEFAULT_NICKNAME)
         ));
 
         AuthenticationRequest request = new AuthenticationRequest(DEFAULT_EMAIL, DEFAULT_PASSWORD);
@@ -95,7 +99,7 @@ public abstract class AbstractBaseControllerTest {
         addAllSteamGamesStub();
         steamService.getAllSteamGamesAndSaveIntoDatabase();
 
-        when(steamGameRepository.findByNameIgnoreCaseContaining(any(String.class)))
+        Mockito.when(steamGameRepository.findByNameIgnoreCaseContaining(any(String.class)))
                 .thenReturn(Optional.of(List.of(new SteamGame(1091500, "Cyberpunk 2077"))));
     }
 
@@ -126,12 +130,12 @@ public abstract class AbstractBaseControllerTest {
         log.info("Test PostgreSQL was stoped");
     }
 
-    protected User buildMockUser(Integer id, String email, String nickname, String password) {
+    protected User buildMockUser(String nickname) {
         return User.builder()
-                .id(id)
-                .email(email)
+                .id(DEFAULT_ID)
+                .email(DEFAULT_EMAIL)
                 .nickname(nickname)
-                .password(passwordEncoder.encode(password))
+                .password(passwordEncoder.encode(DEFAULT_PASSWORD))
                 .role(Role.USER)
                 .build();
     }
@@ -155,16 +159,16 @@ public abstract class AbstractBaseControllerTest {
                 favoriteGame.getGogId(),
                 favoriteGame.getEgsId());
 
-        when(favoriteGameRepository.findByEmailAndNameIgnoreCase(any(String.class), any(String.class)))
+        Mockito.when(favoriteGameRepository.findByEmailAndNameIgnoreCase(any(String.class), any(String.class)))
                 .thenReturn(Optional.of(favoriteGame));
 
-        when(favoriteGameRepository.findByEmailIgnoreCase(any(String.class)))
+        Mockito.when(favoriteGameRepository.findByEmailIgnoreCase(any(String.class)))
                 .thenReturn(Optional.of(List.of(favoriteGame)));
 
-        when(favoriteGameRepository.findEmailsByName(any(String.class)))
+        Mockito.when(favoriteGameRepository.findEmailsByName(any(String.class)))
                 .thenReturn(Optional.of(List.of(DEFAULT_EMAIL)));
 
-        when(favoriteGameRepository.findAllFavoriteGames())
+        Mockito.when(favoriteGameRepository.findAllFavoriteGames())
                 .thenReturn(Optional.of(List.of(gameDTO)));
     }
 

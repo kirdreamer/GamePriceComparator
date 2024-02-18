@@ -126,10 +126,13 @@ public class FavoriteListEmailSenderService {
         GameProviderResponse gameProviderResponse = game.game_providers.stream()
                 .filter(gameProvider -> gameProvider.name().equals(platform))
                 .findFirst().orElse(null);
-        if (Objects.nonNull(gameProviderResponse))
-            return Double.compare(gameProviderResponse.price().final_value(), gameProviderResponse.price().initial_value()) < 0;
+
+        if (Objects.nonNull(gameProviderResponse)) {
+            if (Boolean.TRUE.equals(gameProviderResponse.price().is_free()))
+                return true;
+            else
+                return Double.compare(gameProviderResponse.price().final_value(), gameProviderResponse.price().initial_value()) < 0;
+        }
         return false;
     }
-
-    //TODO ThreadExecutor
 }
