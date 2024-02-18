@@ -15,7 +15,6 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
@@ -44,9 +43,9 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
         @DisplayName("(Negative) Should reject an attempt to register user with an existing email")
         void makeAttemptToRegisterUserWithExistingEmail() throws Exception {
             User user =
-                    buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, "testNick", DEFAULT_PASSWORD);
+                    buildMockUser("testNick");
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
+            Mockito.when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             RegisterRequest registerRequest =
                     new RegisterRequest(DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
@@ -61,9 +60,9 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
         @DisplayName("(Negative) Should reject an attempt to register user with an existing nickname")
         void makeAttemptToRegisterUserWithExistingNickname() throws Exception {
             User user =
-                    buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
+                    buildMockUser(DEFAULT_NICKNAME);
 
-            when(userRepository.findByNickname(DEFAULT_NICKNAME)).thenReturn(Optional.of(user));
+            Mockito.when(userRepository.findByNickname(DEFAULT_NICKNAME)).thenReturn(Optional.of(user));
 
             RegisterRequest registerRequest =
                     new RegisterRequest("testtest@example.com", DEFAULT_NICKNAME, DEFAULT_PASSWORD);
@@ -82,9 +81,9 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
         @DisplayName("(Positive) Should successfully login as user")
         void makeSuccessfulLogin() throws Exception {
             User user =
-                    buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
+                    buildMockUser(DEFAULT_NICKNAME);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
+            Mockito.when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, DEFAULT_PASSWORD);
@@ -123,9 +122,9 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
         @DisplayName("(Negative) Should reject login because of wrong password")
         void makeAttemptToLoginWithWrongPassword() throws Exception {
             User user =
-                    buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
+                    buildMockUser(DEFAULT_NICKNAME);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
+            Mockito.when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, "ne ponyal");
@@ -151,9 +150,9 @@ class AuthenticationControllerTest extends AbstractBaseControllerTest {
         @DisplayName("(Positive) Should return response body with valid token")
         void makeRequestGetLoggedInUser() throws Exception {
             User user =
-                    buildMockUser(DEFAULT_ID, DEFAULT_EMAIL, DEFAULT_NICKNAME, DEFAULT_PASSWORD);
+                    buildMockUser(DEFAULT_NICKNAME);
 
-            when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
+            Mockito.when(userRepository.findByEmail(DEFAULT_EMAIL)).thenReturn(Optional.of(user));
 
             AuthenticationRequest authenticationRequest =
                     new AuthenticationRequest(DEFAULT_EMAIL, DEFAULT_PASSWORD);

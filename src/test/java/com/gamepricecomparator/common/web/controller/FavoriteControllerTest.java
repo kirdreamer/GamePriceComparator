@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,6 +27,7 @@ class FavoriteControllerTest extends AbstractBaseControllerTest {
     private final static String ADD_FAVORITE_URL = "/api/v1/favorite/add";
     private final static String GET_FAVORITE_LIST_URL = "/api/v1/favorite/get-list";
     private final static String DELETE_FAVORITE_URL = "/api/v1/favorite/delete-game";
+    private final static String SEND_PRICE_ALARM_EMAILS_URL = "/api/v1/favorite/send-price-alarm-emails";
 
     @Nested
     @DisplayName("Add Favorite Game To User")
@@ -123,7 +125,7 @@ class FavoriteControllerTest extends AbstractBaseControllerTest {
             }
 
             Mockito.verify(favoriteGameRepository, times(1))
-                    .deleteByEmailAndName(any(String.class), any(String.class));
+                    .deleteByEmailAndName(anyString(), anyString());
 
         }
 
@@ -140,7 +142,7 @@ class FavoriteControllerTest extends AbstractBaseControllerTest {
             }
 
             Mockito.verify(favoriteGameRepository, times(0))
-                    .deleteByEmailAndName(any(String.class), any(String.class));
+                    .deleteByEmailAndName(anyString(), any(String.class));
 
         }
 
@@ -157,12 +159,24 @@ class FavoriteControllerTest extends AbstractBaseControllerTest {
             }
 
             Mockito.verify(favoriteGameRepository, times(0))
-                    .deleteByEmailAndName(any(String.class), any(String.class));
+                    .deleteByEmailAndName(anyString(), any(String.class));
 
         }
     }
 
     @Test
-    void sendPriceAlarmEmails() {
+    @DisplayName("(Positive) Should send emails when one game is discounted")
+    void sendPriceAlarmEmails() throws Exception {
+        prepareFavoriteGameCyberpunkResponse();
+        setupMockStores();
+
+        Mockito.doNothing().when(favoriteListEmailSenderService).sendEmail(anyString(), anyString(), anyString());
+        performGetRequestWithoutToken(SEND_PRICE_ALARM_EMAILS_URL)
+                .andExpect(status().isOk());
+
+        Mockito.verify(favoriteGameRepository, times(1)).findAllFavoriteGames();
+        Mockito.verify(favoriteGameRepository, times(1)).findEmailsByName(anyString());
+        Mockito.verify(favoriteListEmailSenderService, times(1))
+                .sendEmail(anyString(), anyString(), anyString());
     }
 }
