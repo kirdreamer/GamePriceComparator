@@ -2,9 +2,9 @@ name: Java CI with maven
 
 on:
   push:
-    branches: [main, feature/git-actions-pipeline]
+    branches: [ main, feature/git-actions-pipeline ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build-and-test:
@@ -19,5 +19,9 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
           cache: maven
+
+      - name: Create application.properties
+        run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > src/main/resources/application.properties
+
       - name: Build and Test with maven
         run: mvn -B package --file pom.xml
