@@ -1,0 +1,23 @@
+name: Java CI with maven
+
+on:
+  push:
+    branches: [main, feature/git-actions-pipeline]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: maven
+      - name: Build and Test with maven
+        run: mvn -B test --file pom.xml
