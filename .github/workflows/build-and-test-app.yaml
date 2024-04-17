@@ -1,4 +1,4 @@
-name: Java CI with maven
+name: Game Comparator CI/CD
 
 on:
   push:
