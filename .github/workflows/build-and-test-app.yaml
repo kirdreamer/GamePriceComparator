@@ -75,6 +75,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/private-repo/game-comparator-service
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/private-repo:latest
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/private-repo:latest
+          tags: game-price-comparator
