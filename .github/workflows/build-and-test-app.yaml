@@ -76,4 +76,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/private-repo:game-price-comparator
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator:v1.0
