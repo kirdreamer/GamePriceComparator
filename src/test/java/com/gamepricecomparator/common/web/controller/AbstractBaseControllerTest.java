@@ -51,7 +51,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest(classes = StartTestApplication.class)
 public abstract class AbstractBaseControllerTest {
     private static final String JSON_FOLDER_PATH = "jsonResponses/";
-    protected String wrongToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0MUBleGFtcGxlLmNvbSIsImlhdCI6MTcwNzY0OTQyOCwiZXhwIjoxNzA3NjQ5NzI4fQ.ueSCRzp4_1BzWvpNtVf36h7BaM2usDlSzD5ctJN3HybAiZ_NPXgNWspibNkVVxpx";
+    protected String wrongToken = "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0MUBleGFtcGxlLmNvbSIsImlhdCI6MTcxNzk2MTE2MiwiZXhwIjoxNzE3OTYxNDYyfQ.q_d_edgPnqdx6rcM2fi9abwyWvZG0NrfR07kgvKEtAvxbE_4hmKcHerzEnPMEnGW";
     protected static final String DEFAULT_EMAIL = "test1@example.com";
     protected static final String DEFAULT_NICKNAME = "testNickname";
     protected static final String DEFAULT_PASSWORD = "testPassword";
