@@ -23,16 +23,15 @@ This project also has a CI/CD pipeline using Github Actions technology. After pa
 ## Build-And-Test Requirements
 To build this project, the following steps must be completed:
 
-1. Create application.properties file. Use main/src/main/resources/application.properties_template as a template
-    1. Write your URL and credentials to connect database in spring.datasource.url, .username and .password
-    2. Add your gmail in spring.mail.username and App-password from google in spring.mail.password: Google-Account -> Security -> 2-Factor Authentication -> App Passwords. To use a different mail provider, you must change the host in spring.mail.host
+1. To use environment variables in application.properties file you need to use .env.template as a template
+    1. Write your URL and credentials to connect database for PostgresDB. By default, url is "localhost" and port is "5432".
+    2. Add your gmail in MAIL_PROVIDER_USERNAME and App-password from google in MAIL_PROVIDER_PASSWORD: Google-Account -> Security -> 2-Factor Authentication -> App Passwords. To use a different mail provider, you must change the host in spring.mail.host
     3. Add secret key for jwt. To generate this key you can use such sites like [www.browserling.com](https://www.browserling.com/tools/random-hex)
-2. (Optional) To be able to build a project with docker-compose, you need to create an .env file. Use .env.template as a template
-3. Use the following command to build and test project with maven from the root of the project:
+2. Use the following command to build and test project with maven from the root of the project:
 ``` bash
 > maven clean package
 ```
-4. Use the following command to build and start the application with docker-compose from the root of the project:
+3. Use the following command to build and start the application with docker-compose from the root of the project:
 ``` bash
 > docker-compose -f docker-compose.yaml up
 ```

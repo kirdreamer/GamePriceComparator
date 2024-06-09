@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   postgres:
     container_name: container-pg
@@ -31,12 +30,21 @@ services:
     restart: unless-stopped
 
   application:
-    container_name: game-comparator-service
+    container_name: game-price-comparator
     build: .
     ports:
       - "8080:8080"
     networks:
       - app-network
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      MAIL_PROVIDER_USERNAME: ${MAIL_PROVIDER_USERNAME}
+      MAIL_PROVIDER_PASSWORD: ${MAIL_PROVIDER_PASSWORD}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_URL: ${POSTGRES_URL}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     depends_on:
       - postgres
     restart: unless-stopped
