@@ -33,5 +33,4 @@ build/
 .vscode/
 
 !/compose.yaml
-src/main/resources/application.properties
 .env
