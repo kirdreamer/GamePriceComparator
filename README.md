@@ -2,7 +2,6 @@
 
 RESTful backend service responsible for comparing prices of searched games on the main gaming platforms like Steam, Epic Game Store and GOG. For authenticated users there is also an opportunity to add a game to favorites and receive an email notification if this game is sold on one or more platforms at a discount.
 
-=======
 ## Concept
 
 [→ concept link](./docs/concept.md)
@@ -39,6 +38,11 @@ To build this project, the following steps must be completed:
 3. Use the following command to build and start the application with docker-compose from the root of the project:
 ``` bash
 > docker-compose -f docker-compose.yaml up
+```
+4. To build docker image and start the container you need to use following commands:
+``` bash
+> docker build -t game-price-comparator-app .
+> docker run --env-file .env -p 8080:8080 game-price-comparator-app
 ```
 
 ## Future development of the project
