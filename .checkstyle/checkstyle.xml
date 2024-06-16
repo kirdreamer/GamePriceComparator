@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+        "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <property name="localeLanguage" value="en"/>
+    <module name="FileTabCharacter"/>
+
+    <module name="SuppressWarningsFilter" />
+    <module name="TreeWalker">
+        <module name="UnusedImports"/>
+        <module name="AvoidStarImport"/>
+        <module name="RedundantImport"/>
+        <module name="IllegalImport" />
+        <module name="SimplifyBooleanExpression"/>
+        <module name="OneStatementPerLine"/>
+        <module name="UnnecessaryParentheses" />
+        <module name="SimplifyBooleanReturn"/>
+
+        <!-- style -->
+        <module name="DefaultComesLast"/>
+        <module name="EmptyStatement"/>
+        <module name="ArrayTypeStyle"/>
+        <module name="UpperEll"/>
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+        <module name="EmptyStatement"/>
+        <module name="ConstantName"/>
+        <module name="LocalVariableName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="MemberName">
+            <property name="format" value="^[a-z][a-zA-Z0-9_]*$$"/>
+        </module>
+        <module name="ClassTypeParameterName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="InterfaceTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+
+        <!-- whitespace -->
+        <module name="GenericWhitespace"/>
+        <module name="NoWhitespaceBefore"/>
+        <module name="WhitespaceAfter" />
+        <module name="NoWhitespaceAfter"/>
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+        </module>
+        <module name="MethodParamPad"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="Indentation"/>
+
+        <!-- code quality -->
+        <module name="MethodLength"/>
+        <module name="ParameterNumber"/>
+        <module name="ClassDataAbstractionCoupling"/>
+        <module name="BooleanExpressionComplexity"/>
+    </module>
+</module>

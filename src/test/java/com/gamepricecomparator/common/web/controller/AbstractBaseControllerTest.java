@@ -56,8 +56,8 @@ public abstract class AbstractBaseControllerTest {
     protected static final String DEFAULT_NICKNAME = "testNickname";
     protected static final String DEFAULT_PASSWORD = "testPassword";
     protected static final int DEFAULT_ID = 1;
-    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.1");
-    protected static final WireMockServer wireMockServer = new WireMockServer(options().port(8080));
+    private static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:16.1");
+    protected static final WireMockServer WIRE_MOCK_SERVER = new WireMockServer(options().port(8080));
 
     @MockBean
     protected UserRepository userRepository;
@@ -119,14 +119,14 @@ public abstract class AbstractBaseControllerTest {
     @BeforeAll
     public static void setupContainer() {
         log.info("Trying to start test postgreSQL...");
-        postgres.start();
+        POSTGRES.start();
         log.info("Test PostgreSQL was started");
     }
 
     @AfterAll
     public static void shutdown() {
         log.info("Trying to stop test postgreSQL...");
-        postgres.stop();
+        POSTGRES.stop();
         log.info("Test PostgreSQL was stoped");
     }
 
@@ -220,7 +220,7 @@ public abstract class AbstractBaseControllerTest {
 
     static void setupMockStores() {
         log.info("Trying to start wireMockServer...");
-        wireMockServer.start();
+        WIRE_MOCK_SERVER.start();
         addSteamStub();
         addGogStub();
         addEgsStub();
@@ -228,7 +228,7 @@ public abstract class AbstractBaseControllerTest {
     }
 
     static void addAllSteamGamesStub() {
-        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/ISteamApps/GetAppList/v2/"))
+        WIRE_MOCK_SERVER.stubFor(WireMock.get(WireMock.urlEqualTo("/ISteamApps/GetAppList/v2/"))
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withStatus(200)
@@ -238,7 +238,7 @@ public abstract class AbstractBaseControllerTest {
     }
 
     static void addSteamStub() {
-        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/api/appdetails?appids=1091500&cc=de"))
+        WIRE_MOCK_SERVER.stubFor(WireMock.get(WireMock.urlEqualTo("/api/appdetails?appids=1091500&cc=de"))
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withStatus(200)
@@ -248,7 +248,7 @@ public abstract class AbstractBaseControllerTest {
     }
 
     static void addGogStub() {
-        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/games/ajax/filtered?search=Cyberpunk%202077"))
+        WIRE_MOCK_SERVER.stubFor(WireMock.get(WireMock.urlEqualTo("/games/ajax/filtered?search=Cyberpunk%202077"))
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withStatus(200)
@@ -258,7 +258,7 @@ public abstract class AbstractBaseControllerTest {
     }
 
     static void addEgsStub() {
-        wireMockServer.stubFor(WireMock.post(WireMock.urlEqualTo("/graphql"))
+        WIRE_MOCK_SERVER.stubFor(WireMock.post(WireMock.urlEqualTo("/graphql"))
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withStatus(200)
@@ -269,7 +269,7 @@ public abstract class AbstractBaseControllerTest {
 
     static void shutdownMockStores() {
         log.info("Trying to stop wireMockServer...");
-        wireMockServer.shutdown();
+        WIRE_MOCK_SERVER.shutdown();
         log.info("WireMockServer was stoped");
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:egs-test.properties")
 @PropertySource("classpath:steam-test.properties")
 @PropertySource("classpath:email-test.properties")
-public class TestConfiguration extends ApplicationConfig{
+public class TestConfiguration extends ApplicationConfig {
     public TestConfiguration(UserRepository userRepository) {
         super(userRepository);
     }

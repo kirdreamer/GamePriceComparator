@@ -12,7 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import static com.gamepricecomparator.common.service.UtilService.filterSymbolsInName;
 import static com.gamepricecomparator.common.service.UtilService.keepTwoDigitAfterDecimal;
@@ -39,7 +42,7 @@ public class EgsService {
     public List<EgsProduct> filterGamesInEgsList(List<EgsProduct> productList) {
         return productList.stream()
                 .filter(egsProduct -> Objects.nonNull(egsProduct.link()) ||
-                        (Objects.nonNull(egsProduct.offerMappings()) && !egsProduct.offerMappings().isEmpty()))
+                        Objects.nonNull(egsProduct.offerMappings()) && !egsProduct.offerMappings().isEmpty())
                 .toList();
     }
 

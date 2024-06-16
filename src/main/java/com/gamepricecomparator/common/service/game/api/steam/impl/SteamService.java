@@ -50,7 +50,7 @@ public class SteamService {
             SteamGameResponse gameResponse = getGameById(steamGame.getAppid());
             if (Objects.nonNull(gameResponse) &&
                     (gameResponse.type().equals("game") ||
-                            (gameResponse.type().equals("dlc") && isSearchDlcEnabled))
+                            gameResponse.type().equals("dlc") && isSearchDlcEnabled)
             )
                 steamGameResponses.add(gameResponse);
         }
