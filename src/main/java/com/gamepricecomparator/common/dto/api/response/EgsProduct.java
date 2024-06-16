@@ -17,9 +17,9 @@ public record EgsProduct(
         String short_description,
         Price price
 ) {
-    public record OfferMapping(
-            String pageSlug
-    ){}
+    public record OfferMapping(String pageSlug) {
+    }
+
     public record Url(String url) {
     }
 

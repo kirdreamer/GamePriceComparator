@@ -11,7 +11,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:egs.properties")
 @PropertySource("classpath:steam.properties")
 @PropertySource("classpath:email.properties")
-public  class DefaultConfiguration extends ApplicationConfig{
+public class DefaultConfiguration extends ApplicationConfig {
     public DefaultConfiguration(UserRepository userRepository) {
         super(userRepository);
     }

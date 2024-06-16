@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user_account" )
+@Table(name = "user_account")
 public class User implements UserDetails {
 
     @Id
