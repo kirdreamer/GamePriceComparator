@@ -45,6 +45,14 @@ To build this project, the following steps must be completed:
 > docker run --env-file .env -p 8080:8080 game-price-comparator-app
 ```
 
+## Kubernetes
+
+To be able to use secrets from .env you need to create them using kubectl:
+
+``` bash
+kubectl create secret generic game-price-comparator-secret --from-env-file=.env
+```
+
 ## Future development of the project
 * Cloud deployment
 * Using Kubernetes
