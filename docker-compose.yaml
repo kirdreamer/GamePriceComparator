@@ -45,6 +45,7 @@ services:
       POSTGRES_PORT: ${POSTGRES_PORT}
       POSTGRES_URL: ${POSTGRES_URL}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      FRONTEND_URL: ${FRONTEND_URL}
     depends_on:
       - postgres
     restart: unless-stopped
