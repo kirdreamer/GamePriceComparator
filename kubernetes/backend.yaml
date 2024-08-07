@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-price-comparator-deployment
+  labels:
+    app: game-price-comparator
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: game-price-comparator
+  template:
+    metadata:
+      labels:
+        app: game-price-comparator
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: game-price-comparator
+          resources:
+            limits:
+              memory: 1000Mi
+              cpu: "0.7"
+          image: 'docker.io/kkkira/game-price-comparator:v1.0'
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: game-price-comparator-secret
+          env:
+            - name: POSTGRES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: postgres-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-price-comparator-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: game-price-comparator
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
