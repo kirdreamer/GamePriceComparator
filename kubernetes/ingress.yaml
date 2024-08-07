@@ -1,0 +1,17 @@
+apiVersion: 'networking.k8s.io/v1'
+kind: 'Ingress'
+metadata:
+  name: game-price-comparator-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: game-price-comparator.<minikube-ip>.nip.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: '/'
+            backend:
+              service:
+                name: game-price-comparator-service
+                port:
+                  number: 80
