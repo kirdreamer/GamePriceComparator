@@ -21,7 +21,7 @@ spec:
             limits:
               memory: 1000Mi
               cpu: "0.7"
-          image: 'docker.io/kkkira/game-price-comparator:v1.0'
+          image: 'docker.io/kkkira/game-price-comparator:latest'
           ports:
             - containerPort: 8080
           envFrom:
