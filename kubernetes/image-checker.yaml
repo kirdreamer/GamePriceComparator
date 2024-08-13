@@ -31,7 +31,7 @@ kind: CronJob
 metadata:
   name: image-checker
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "*/2 * * * *"
   jobTemplate:
     spec:
       template:
@@ -44,13 +44,13 @@ spec:
                 - -c
                 - |
                   apt update
-                  apt install -y curl jq
+                  apt install -y curl
                   DEPLOYMENT_NAME=game-price-comparator-deployment
                   NAMESPACE="backend"
                   DOCKER_IMAGE="kkkira/game-price-comparator"
                   DOCKER_TAG="latest"
                   CURRENT_DIGEST=$(kubectl get pod -l app=game-price-comparator -o=jsonpath='{.items[0].status.containerStatuses[0].imageID}' | cut -d'@' -f2)
-                  LATEST_DIGEST=$(curl -s https://hub.docker.com/v2/repositories/${DOCKER_IMAGE}/tags/${DOCKER_TAG}/ | jq -r '.digest')
+                  LATEST_DIGEST=$(curl -s https://hub.docker.com/v2/repositories/${DOCKER_IMAGE}/tags/${DOCKER_TAG}/ | grep -o '"digest":"[^"]*')
                   
                   echo --------
                   echo Current Digest
@@ -59,7 +59,7 @@ spec:
                   echo $LATEST_DIGEST
                   echo --------
                   
-                  if [[ "$CURRENT_DIGEST" != *"$LATEST_DIGEST" ]]; then
+                  if [[ "$LATEST_DIGEST" != *"$CURRENT_DIGEST"* ]]; then
                     echo "New image version found. Updating the deployment..."
                     kubectl rollout restart deployment/$DEPLOYMENT_NAME -n $NAMESPACE
                     echo "Deployment updated successfully."
