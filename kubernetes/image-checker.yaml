@@ -1,0 +1,70 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: backend
+  name: image-checker-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: image-checker-rolebinding
+  namespace: backend
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: backend
+roleRef:
+  kind: Role
+  name: image-checker-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: image-checker
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: image-checker
+              image: 'docker.io/bitnami/kubectl:latest'
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  apt update
+                  apt install -y curl jq
+                  NAMESPACE="backend"
+                  DOCKER_IMAGE="kkkira/game-price-comparator"
+                  DOCKER_TAG="latest"
+                  CURRENT_DIGEST=$(kubectl get pod -l app=game-price-comparator -o=jsonpath='{.items[0].status.containerStatuses[0].imageID}' | cut -d'@' -f2)
+                  LATEST_DIGEST=$(curl -s https://hub.docker.com/v2/repositories/${DOCKER_IMAGE}/tags/${DOCKER_TAG}/ | jq -r '.digest')
+                  
+                  echo --------
+                  echo Current Digest
+                  echo $CURRENT_DIGEST
+                  echo Latest digest
+                  echo $LATEST_DIGEST
+                  echo --------
+                  
+                  if [[ "$CURRENT_DIGEST" != *"$LATEST_DIGEST" ]]; then
+                    echo "New image version found. Updating the deployment..."
+                    kubectl set image deployment/$DEPLOYMENT_NAME game-price-comparator=${DOCKER_IMAGE}@${LATEST_DIGEST} -n $NAMESPACE
+                    echo "Deployment updated successfully."
+                  else
+                    echo "No new image version found."
+                  fi
+              securityContext:
+                runAsUser: 0
+          restartPolicy: OnFailure
