@@ -42,7 +42,7 @@ spec:
             httpGet:
               path: /api/v1/health
               port: 8080
-            initialDelaySeconds: 50
+            initialDelaySeconds: 20
             periodSeconds: 30
             timeoutSeconds: 5
 ---
