@@ -45,6 +45,7 @@ spec:
                 - |
                   apt update
                   apt install -y curl jq
+                  DEPLOYMENT_NAME=game-price-comparator-deployment
                   NAMESPACE="backend"
                   DOCKER_IMAGE="kkkira/game-price-comparator"
                   DOCKER_TAG="latest"
@@ -60,7 +61,7 @@ spec:
                   
                   if [[ "$CURRENT_DIGEST" != *"$LATEST_DIGEST" ]]; then
                     echo "New image version found. Updating the deployment..."
-                    kubectl set image deployment/$DEPLOYMENT_NAME game-price-comparator=${DOCKER_IMAGE}@${LATEST_DIGEST} -n $NAMESPACE
+                    kubectl set image deployment/$DEPLOYMENT_NAME game-price-comparator=docker.io/${DOCKER_IMAGE}@${LATEST_DIGEST} -n $NAMESPACE
                     echo "Deployment updated successfully."
                   else
                     echo "No new image version found."
