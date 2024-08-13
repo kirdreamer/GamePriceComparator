@@ -5,7 +5,7 @@ metadata:
   labels:
     app: game-price-comparator
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: game-price-comparator
@@ -19,7 +19,7 @@ spec:
         - name: game-price-comparator
           resources:
             limits:
-              memory: 1000Mi
+              memory: 1Gi
               cpu: "0.7"
           image: 'docker.io/kkkira/game-price-comparator:latest'
           ports:
