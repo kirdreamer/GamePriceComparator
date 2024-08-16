@@ -98,7 +98,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator-production:${{ env.IMAGE_VERSION }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator-production:latest
 
   push-docker-image-to-develop:
     needs: test
