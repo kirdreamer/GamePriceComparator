@@ -2,7 +2,9 @@ name: Game Comparator CI/CD
 
 on:
   push:
-    branches: [ main, feature/git-actions-pipeline ]
+    branches: [ main, release/** ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ main ]
 
@@ -68,7 +70,7 @@ jobs:
       - name: Test with Maven
         run: mvn -B test --file pom.xml
 
-  build-and-push-docker-image:
+  push-docker-image-to-production:
     needs: test
 
     runs-on: ubuntu-latest
@@ -87,11 +89,70 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Extract version from branch name
+        run: echo "IMAGE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator:v1.0
+            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator-production:${{ env.IMAGE_VERSION }}
             ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator:latest
+
+  push-docker-image-to-develop:
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    if: (github.event_name == 'pull_request' && github.base_ref == 'main') || (github.event_name == 'push' && github.event.pull_request.base.ref == 'main')
+    environment: develop
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator-develop:latest
+
+  push-docker-image-to-staging:
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: staging
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Extract version from branch name
+        run: echo "IMAGE_VERSION=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_ENV
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator-staging:${{ env.IMAGE_VERSION }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/game-price-comparator-staging:latest
