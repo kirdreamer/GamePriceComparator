@@ -2,9 +2,9 @@
 
 RESTful backend service responsible for comparing prices of searched games on the main gaming platforms like Steam, Epic Game Store and GOG. For authenticated users there is also an opportunity to add a game to favorites and receive an email notification if this game is sold on one or more platforms at a discount.
 
-## Concept
+## Frontend
 
-[→ concept link](./docs/concept.md)
+[→ Frontend link](https://github.com/derReiskanzler/fe-angular-game-price-comparator)
 
 ## Technologies
 - Spring Frameworks such as SpringBoot and SpringSecurity
